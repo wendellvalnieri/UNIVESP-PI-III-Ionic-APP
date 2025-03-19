@@ -14,9 +14,8 @@ import { AgendamentoFormComponent } from './agendamento-form/agendamento-form.co
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     AgendamentosPageRoutingModule,
-    IonicModule,
-    ReactiveFormsModule
   ],
   declarations: [AgendamentosPage, AgendamentoFormComponent]
 })

@@ -10,6 +10,7 @@ import { MensagensService } from 'src/app/services/mensagens.service';
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss'],
+  standalone: false
 })
 export class ClientesComponent implements OnInit {
   clienteForm: FormGroup = new FormGroup({});

@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage-angular';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from './api.service';
 import { Usuario } from '../models/usuario.model';
+import { UsersService } from './user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
 
     constructor(
         private apiService: ApiService,
-        private storage: Storage
+        private storage: Storage,
+        private userService: UsersService
     ) {
         this.currentUserSubject = new BehaviorSubject<Usuario | null>(null);
         this.currentUser = this.currentUserSubject.asObservable();
@@ -32,6 +34,9 @@ export class AuthService {
         }
     }
 
+    setUser(data: any) {
+        this.userService.setItem(data);
+    }
     private loadUserFromToken(token: string) {
         try {
             const decodedToken = this.jwtHelper.decodeToken(token);

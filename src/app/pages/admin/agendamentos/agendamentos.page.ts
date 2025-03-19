@@ -1,9 +1,9 @@
 // src/app/pages/agendamentos/agendamentos.page.ts
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
-import { AgendamentoService } from '../../services/agendamento.service';
 import { AgendamentoFormComponent } from './agendamento-form/agendamento-form.component';
 import { Agendamento } from 'src/app/models/agendamento.model';
+import { AgendamentoService } from 'src/app/services/agendamento.service';
 
 @Component({
   selector: 'app-agendamentos',

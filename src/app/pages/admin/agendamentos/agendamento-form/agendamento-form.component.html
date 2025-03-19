@@ -26,7 +26,7 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="agendamentoForm.get('clienteId').invalid && agendamentoForm.get('clienteId').touched">
+      <ion-item *ngIf="agendamentoForm.get('clienteId')?.invalid">
         <ion-text color="danger">Selecione um cliente</ion-text>
       </ion-item>
 
@@ -38,7 +38,7 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="agendamentoForm.get('servicoId').invalid && agendamentoForm.get('servicoId').touched">
+      <ion-item *ngIf="agendamentoForm.get('servicoId')?.invalid ">
         <ion-text color="danger">Selecione um serviço</ion-text>
       </ion-item>
 
@@ -47,7 +47,7 @@
         <ion-datetime formControlName="data" displayFormat="DD/MM/YYYY" min="{{ new Date().toISOString() }}"
           cancelText="Cancelar" doneText="Selecionar"></ion-datetime>
       </ion-item>
-      <ion-item *ngIf="agendamentoForm.get('data').invalid && agendamentoForm.get('data').touched">
+      <ion-item *ngIf="agendamentoForm.get('data')?.invalid">
         <ion-text color="danger">Selecione uma data</ion-text>
       </ion-item>
 
@@ -59,7 +59,7 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item *ngIf="agendamentoForm.get('horario').invalid && agendamentoForm.get('horario').touched">
+      <ion-item *ngIf="agendamentoForm.get('horario').invalid">
         <ion-text color="danger">Selecione um horário</ion-text>
       </ion-item>
 
@@ -120,7 +120,7 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="block" (click)="salvar()" [disabled]="agendamentoForm.invalid">
+    <ion-button expand="block" (click)="salvar()" [disabled]="agendamentoForm?.invalid">
       {{ modo === 'criar' ? 'Criar Agendamento' : 'Atualizar Agendamento' }}
     </ion-button>
   </ion-toolbar>

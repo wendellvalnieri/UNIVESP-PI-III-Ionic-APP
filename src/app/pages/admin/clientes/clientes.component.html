@@ -30,7 +30,7 @@
         <ion-label position="floating">Nome <ion-text color="danger">*</ion-text></ion-label>
         <ion-input type="text" formControlName="nome" required></ion-input>
       </ion-item>
-      <ion-note *ngIf="clienteForm.get('nome').invalid && clienteForm.get('nome').touched" color="danger">
+      <ion-note *ngIf="clienteForm.get('nome')?.invalid " color="danger">
         Nome é obrigatório
       </ion-note>
 
@@ -38,7 +38,7 @@
         <ion-label position="floating">Telefone <ion-text color="danger">*</ion-text></ion-label>
         <ion-input type="tel" formControlName="telefone" required></ion-input>
       </ion-item>
-      <ion-note *ngIf="clienteForm.get('telefone').invalid && clienteForm.get('telefone').touched" color="danger">
+      <ion-note *ngIf="clienteForm.get('telefone')?.invalid" color="danger">
         Telefone é obrigatório
       </ion-note>
 
@@ -46,7 +46,7 @@
         <ion-label position="floating">Email</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
-      <ion-note *ngIf="clienteForm.get('email').invalid && clienteForm.get('email').touched" color="danger">
+      <ion-note *ngIf="clienteForm.get('email')?.invalid " color="danger">
         Email inválido
       </ion-note>
 
