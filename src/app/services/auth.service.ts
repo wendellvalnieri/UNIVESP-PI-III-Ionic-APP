@@ -80,8 +80,8 @@ export class AuthService {
     }
 
     getToken(): string | null {
-        const currentUser = this.currentUserSubject.value;
-        return currentUser ? currentUser.token : null;
+        const currentUser: any = this.currentUserSubject.value;
+        return currentUser ? currentUser?.token : null;
     }
 
     getCurrentUser(): Usuario | null {

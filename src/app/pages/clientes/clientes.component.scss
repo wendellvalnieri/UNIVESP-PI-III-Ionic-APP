@@ -1,0 +1,46 @@
+/* cliente-edit.page.scss */
+.profile-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f2f2f2;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+
+    ion-icon {
+        font-size: 6rem;
+        color: #888;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &.has-image {
+        border: 2px solid var(--ion-color-primary);
+    }
+}
+
+ion-note {
+    margin-left: 16px;
+    font-size: 0.8rem;
+}
+
+ion-item {
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+}
