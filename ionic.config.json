@@ -1,5 +1,7 @@
 {
-  "name": "Salao App",
-  "integrations": {},
-  "type": "angular-standalone"
+  "name": "salao_beleza",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
 }

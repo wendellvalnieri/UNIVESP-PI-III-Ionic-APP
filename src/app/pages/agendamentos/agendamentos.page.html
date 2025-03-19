@@ -1,0 +1,77 @@
+<!-- src/app/pages/agendamentos/agendamentos.page.html -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agendamentos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="abrirFormulario()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Filtrar por data</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Data</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataFiltro" (ionChange)="onDataChange()"></ion-datetime>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Agendamentos do dia</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngIf="agendamentos.length === 0 && !carregando">
+      <ion-label class="ion-text-center">
+        Nenhum agendamento encontrado para esta data.
+      </ion-label>
+    </ion-item>
+
+    <ion-item-sliding *ngFor="let agendamento of agendamentos">
+      <ion-item (click)="abrirFormulario(agendamento)">
+        <ion-avatar slot="start">
+          <img src="assets/icon/user-avatar.png" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ agendamento.clienteNome }}</h2>
+          <h3>{{ agendamento.servicoNome }} - R$ {{ agendamento.valor.toFixed(2) }}</h3>
+          <p>Horário: {{ agendamento.horario }}</p>
+        </ion-label>
+        <ion-badge [color]="getStatusColor(agendamento.status)" slot="end">
+          {{ agendamento.status }}
+        </ion-badge>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option *ngIf="agendamento.status === 'agendado'" color="success"
+          (click)="concluirAgendamento(agendamento.id)">
+          <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-item-option>
+        <ion-item-option *ngIf="agendamento.status === 'agendado'" color="danger"
+          (click)="confirmarCancelamento(agendamento)">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-refresher slot="fixed" (ionRefresh)="carregarAgendamentos(); $event.target.complete()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="abrirFormulario()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
