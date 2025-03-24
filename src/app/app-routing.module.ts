@@ -4,11 +4,16 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/public/pages-public.module').then(m => m.PagesPublicPageModule)
+    redirectTo: 'public/login',
+    pathMatch: 'full'
   },
   {
     path: 'admin',
     loadChildren: () => import('./pages/admin/pages-admin.module').then(m => m.PagesAdminPageModule)
+  },
+  {
+    path: 'public',
+    loadChildren: () => import('./pages/public/pages-public.module').then(m => m.PagesPublicPageModule)
   },
 ];
 

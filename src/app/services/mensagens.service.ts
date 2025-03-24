@@ -7,7 +7,7 @@ import { AlertController, LoadingController, ToastController } from '@ionic/angu
 })
 export class MensagensService {
   private isLoading = false;
-  private loader: HTMLIonLoadingElement = new HTMLIonLoadingElement();
+  private loader: any;
 
   constructor(
     private toastController: ToastController,

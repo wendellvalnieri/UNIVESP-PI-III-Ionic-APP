@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import { Storage } from '@ionic/storage-angular';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { ApiService } from './api.service';
 import { Usuario } from '../models/usuario.model';
 import { UsersService } from './user.service';
+import { ApiAxiosService } from './api-axios.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,9 +13,10 @@ export class AuthService {
     private currentUserSubject: BehaviorSubject<Usuario | null>;
     public currentUser: Observable<Usuario | null>;
     private jwtHelper = new JwtHelperService();
+    private endpoint: string = 'auth';
 
     constructor(
-        private apiService: ApiService,
+        private apiAxios: ApiAxiosService,
         private storage: Storage,
         private userService: UsersService
     ) {
@@ -58,22 +57,28 @@ export class AuthService {
         }
     }
 
-    login(email: string, password: string): Observable<Usuario> {
-        return this.apiService.post<{ token: string, usuario: Usuario }>('auth/login', { email, password })
-            .pipe(
-                tap(async response => {
-                    await this.storage.set('token', response.token);
-                    const user = response.usuario;
-                    user.token = response.token;
-                    this.currentUserSubject.next(user);
-                }),
-                map(response => response.usuario)
-            );
+    login(username: string, password: string) {
+        const data = {
+            username: username,
+            password: password,
+            isApp: true,
+        };
+        const response = this.apiAxios.post(`${this.endpoint}/login`, data);
+        return response;
     }
 
     async logout() {
         await this.storage.remove('token');
         this.currentUserSubject.next(null);
+    }
+
+    async verifyToken() {
+        if (await this.storage.get('token')) {
+            const response = await this.apiAxios.post(`${this.endpoint}/token`, []);
+            if (response?.data?.length == 0 || response?.data?.ativo != 1) return false;
+            return response;
+        }
+        return false;
     }
 
     isAuthenticated(): boolean {

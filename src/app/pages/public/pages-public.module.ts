@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,6 +17,8 @@ import { HomeComponent } from './home/home.component';
     IonicModule,
     PagesPublicPageRoutingModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   declarations: [PagesPublicPage, LoginComponent, HomeComponent]
 })
 export class PagesPublicPageModule { }
