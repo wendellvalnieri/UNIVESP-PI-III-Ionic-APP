@@ -11,13 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MenuAdminComponent implements OnInit {
   public appPages = [
-    { title: 'Sensores', url: '/admin/sensors/list', icon: 'paper-plane' },
+    { title: 'Dashboard', url: '/admin', icon: 'paper-plane' },
   ];
-  public reports = [
-    { title: 'Diário', url: '/admin/reports/diario', icon: 'archive' },
-    { title: 'Média', url: '/admin/reports/media', icon: 'archive' },
+  public services = [
+    { title: 'Agendamentos', url: '/admin/agendamentos', icon: 'archive' },
   ];
-  public labels = ['Temperatura', 'Umidade'];
   empresa: any;
 
   constructor(

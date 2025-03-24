@@ -36,7 +36,7 @@ export class AgendamentosPage implements OnInit {
     await loading.present();
 
     const data = new Date(this.dataFiltro);
-    this.agendamentoService.getAgendamentosPorDia(data).subscribe(
+   /*  this.agendamentoService.getAgendamentosPorDia(data).subscribe(
       (agendamentos) => {
         this.agendamentos = agendamentos;
         this.carregando = false;
@@ -54,7 +54,7 @@ export class AgendamentosPage implements OnInit {
         });
         await alert.present();
       }
-    );
+    ); */
   }
 
   async abrirFormulario(agendamento?: Agendamento) {
@@ -101,7 +101,7 @@ export class AgendamentosPage implements OnInit {
     });
     await loading.present();
 
-    this.agendamentoService.cancelarAgendamento(id).subscribe(
+    /* this.agendamentoService.cancelarAgendamento(id).subscribe(
       () => {
         loading.dismiss();
         this.carregarAgendamentos();
@@ -117,7 +117,7 @@ export class AgendamentosPage implements OnInit {
         });
         await alert.present();
       }
-    );
+    ); */
   }
 
   async concluirAgendamento(id: number) {
@@ -126,7 +126,7 @@ export class AgendamentosPage implements OnInit {
     });
     await loading.present();
 
-    this.agendamentoService.concluirAgendamento(id).subscribe(
+   /*  this.agendamentoService.concluirAgendamento(id).subscribe(
       () => {
         loading.dismiss();
         this.carregarAgendamentos();
@@ -142,7 +142,7 @@ export class AgendamentosPage implements OnInit {
         });
         await alert.present();
       }
-    );
+    ); */
   }
 
   onDataChange() {

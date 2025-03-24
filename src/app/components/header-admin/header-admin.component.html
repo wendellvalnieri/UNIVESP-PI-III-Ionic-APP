@@ -10,9 +10,9 @@
     <ion-buttons slot="end" (click)="close()" *ngIf="showCloseButton">
       <ion-icon name="close"></ion-icon>
     </ion-buttons>
-    <ion-buttons slot="end" (click)="logout()" *ngIf="showLogoutButton">
-      <ion-icon name="close"></ion-icon>
+    <ion-buttons slot="end" routerLink="/profile" *ngIf="showSetttingButton">
+      <ion-icon name="settings"></ion-icon>
     </ion-buttons>
-    <ion-title>{{title}}</ion-title>
+    <ion-title>{{title || 'Tammy Beleza'}}</ion-title>
   </ion-toolbar>
 </ion-header>

@@ -10,6 +10,7 @@ import { PagesAdminPage } from './pages-admin.page';
 import { HeaderAdminModule } from 'src/app/components/header-admin/header-admin.module';
 import { MenuAdminModule } from 'src/app/components/menu-admin/menu-admin.module';
 import { HomeAdminComponent } from './home/home-admin.component';
+import { AgendamentosPageModule } from './agendamentos/agendamentos.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { HomeAdminComponent } from './home/home-admin.component';
     PagesAdminPageRoutingModule,
     HeaderAdminModule,
     MenuAdminModule,
+    AgendamentosPageModule
   ],
   declarations: [PagesAdminPage, HomeAdminComponent]
 })

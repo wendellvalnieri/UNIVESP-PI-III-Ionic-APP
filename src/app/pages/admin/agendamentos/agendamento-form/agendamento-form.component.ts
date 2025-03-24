@@ -2,12 +2,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, LoadingController, AlertController } from '@ionic/angular';
-import { AgendamentoService } from '../../../services/agendamento.service';
-import { ClienteService } from '../../../services/cliente.service';
-import { ServicoService } from '../../../services/servico.service';
-import { Agendamento } from '../../../models/agendamento.model';
-import { Cliente } from '../../../models/cliente.model';
-import { Servico } from '../../../models/servico.model';
+import { Cliente } from 'src/app/models/cliente.model';
+import { Servico } from 'src/app/models/servico.model';
+import { AgendamentoService } from 'src/app/services/agendamento.service';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { ServicoService } from 'src/app/services/servico.service';
 
 @Component({
   selector: 'app-agendamento-form',
@@ -16,9 +15,6 @@ import { Servico } from '../../../models/servico.model';
   standalone: false
 })
 export class AgendamentoFormComponent implements OnInit {
-  @Input() agendamento: Agendamento;
-
-  agendamentoForm: FormGroup;
   clientes: Cliente[] = [];
   servicos: Servico[] = [];
   horarios: string[] = [];
@@ -35,17 +31,17 @@ export class AgendamentoFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.inicializarFormulario();
+  /*   this.inicializarFormulario();
     this.carregarClientes();
     this.carregarServicos();
-    this.gerarHorarios();
-
+    this.gerarHorarios(); */
+/* 
     if (this.agendamento) {
       this.modo = 'editar';
       this.preencherFormulario(this.agendamento);
-    }
+    } */
   }
-
+/* 
   inicializarFormulario() {
     this.agendamentoForm = this.formBuilder.group({
       clienteId: ['', Validators.required],
@@ -264,5 +260,5 @@ export class AgendamentoFormComponent implements OnInit {
   getServicoPreco(servicoId: number): number {
     const servico = this.servicos.find(s => s.id === servicoId);
     return servico ? servico.preco : 0;
-  }
+  } */
 }

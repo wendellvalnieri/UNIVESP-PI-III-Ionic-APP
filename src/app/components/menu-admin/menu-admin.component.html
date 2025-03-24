@@ -17,12 +17,12 @@
   </ion-menu-toggle>
 </ion-list>
 <ion-list>
-  <ion-list-header>Relatórios</ion-list-header>
-  <ion-menu-toggle auto-hide="false" *ngFor="let p of reports; let i = index" type="push">
-    <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-      <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-      <ion-label>{{ p.title }}</ion-label>
-    </ion-item>
+  <ion-list-header>Administrativo</ion-list-header>
+    <ion-menu-toggle auto-hide="false" *ngFor="let service of services; let i = index" type="push">
+      <ion-item routerDirection="root" [routerLink]="[service.url]" lines="none" detail="false" routerLinkActive="selected">
+        <ion-icon slot="start" [ios]="service.icon + '-outline'" [md]="service.icon + '-sharp'"></ion-icon>
+        <ion-label>{{ service.title }}</ion-label>
+      </ion-item>
   </ion-menu-toggle>
 </ion-list>
 <ion-list>
