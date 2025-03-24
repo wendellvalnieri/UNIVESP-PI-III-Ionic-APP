@@ -153,6 +153,7 @@ export class MensagensService {
    */
   async hideLoading() {
     if (this.isLoading) {
+
       await this.loader.dismiss();
       this.isLoading = false;
     }

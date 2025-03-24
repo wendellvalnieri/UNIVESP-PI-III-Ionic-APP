@@ -6,9 +6,11 @@ export interface Agendamento {
     servicoNome: string;
     data: string;
     horario: string;
-    status: 'agendado' | 'concluido' | 'cancelado';
+    status: number;
     valor: number;
     observacoes?: string;
     profissionalId?: number;
     profissionalNome?: string;
+    data_reserva: Date,
+    hora_reserva: Date
 }

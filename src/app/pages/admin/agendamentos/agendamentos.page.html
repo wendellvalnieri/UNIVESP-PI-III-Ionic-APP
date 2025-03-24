@@ -43,8 +43,8 @@
         </ion-avatar>
         <ion-label>
           <h2>{{ agendamento.clienteNome }}</h2>
-          <h3>{{ agendamento.servicoNome }} - R$ {{ agendamento.valor.toFixed(2) }}</h3>
-          <p>Horário: {{ agendamento.horario }}</p>
+       <!--    <h3>{{ agendamento.servicoNome }} - R$ {{ agendamento.valor.toFixed(2) }}</h3> -->
+          <p>Horário: {{ agendamento.hora_reserva }}</p>
         </ion-label>
         <ion-badge [color]="getStatusColor(agendamento.status)" slot="end">
           {{ agendamento.status }}
@@ -52,12 +52,10 @@
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option *ngIf="agendamento.status === 'agendado'" color="success"
-          (click)="concluirAgendamento(agendamento.id)">
+        <ion-item-option *ngIf="agendamento.status === 1" color="success" (click)="concluirAgendamento(agendamento.id)">
           <ion-icon slot="icon-only" name="checkmark"></ion-icon>
         </ion-item-option>
-        <ion-item-option *ngIf="agendamento.status === 'agendado'" color="danger"
-          (click)="confirmarCancelamento(agendamento)">
+        <ion-item-option *ngIf="agendamento.status === 1" color="danger" (click)="confirmarCancelamento(agendamento)">
           <ion-icon slot="icon-only" name="close"></ion-icon>
         </ion-item-option>
       </ion-item-options>

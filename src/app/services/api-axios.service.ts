@@ -46,7 +46,7 @@ export class ApiAxiosService {
       const response = await this.request.get(url, {
         params: params
       });
-      return await (response.data.data);
+      return await (response.data);
     } catch (error: any) {
       const errorMessage = this.formatErrorMessage(error);
       return errorMessage;
@@ -119,7 +119,12 @@ export class ApiAxiosService {
 
   formatErrorMessage(error: any) {
     if (error?.response?.data?.error) return error?.response?.data;
-    if (error.message) return error.response.data;
+    if (error.message) {
+      if (error?.response) {
+        return error.response.data;
+      }
+      return error.message;
+    }
     return error.response.data;
   }
 }
