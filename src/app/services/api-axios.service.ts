@@ -119,7 +119,7 @@ export class ApiAxiosService {
 
   formatErrorMessage(error: any) {
     if (error?.response?.data?.error) return error?.response?.data;
-    if (error.message) return error.message;
+    if (error.message) return error.response.data;
     return error.response.data;
   }
 }

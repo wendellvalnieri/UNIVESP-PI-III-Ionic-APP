@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ApiAxiosService } from './api-axios.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,7 @@ export class UsersService {
     }
     constructor(
         private apiAxios: ApiAxiosService,
+        private storage: Storage,
     ) { }
 
     createUser(data: any) {
@@ -38,11 +40,13 @@ export class UsersService {
         return response;
     }
 
-    setItem(data: any) {
+    async setItem(data: any) {
         this.item = data;
         this.setUserDataToLocalStorage(data);
-        if (!sessionStorage?.['token'] || sessionStorage?.['token'] == undefined) {
-            sessionStorage['token'] = data.token;
+        const token = await this.storage.get('token');
+
+        if (!token) {
+            await this.storage.set('token', data.token);
         }
     }
 
@@ -50,8 +54,8 @@ export class UsersService {
         this.item = undefined;
     }
 
-    getUserDataLocalStorage() {
-        const aux = localStorage.getItem('cliente');
+    async getUserDataLocalStorage() {
+        const aux = await this.storage.get('cliente');
         if (aux == 'undefined' || aux == undefined) {
             localStorage.clear();
             return;
@@ -64,12 +68,12 @@ export class UsersService {
         }
     }
 
-    setUserDataToLocalStorage(data: any) {
-        localStorage['cliente'] = JSON.stringify(data);
+    async setUserDataToLocalStorage(data: any) {
+        await this.storage.set('cliente', data);
     }
 
-    getCurrentUser() {
-        const token = sessionStorage.getItem('token');
+    async getCurrentUser() {
+        const token = await this.storage.get('token');
         if (token) {
             const response = this.apiAxios.post(`auth/token`);
             return response;

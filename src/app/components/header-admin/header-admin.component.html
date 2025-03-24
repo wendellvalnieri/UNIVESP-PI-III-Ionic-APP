@@ -10,6 +10,9 @@
     <ion-buttons slot="end" (click)="close()" *ngIf="showCloseButton">
       <ion-icon name="close"></ion-icon>
     </ion-buttons>
+    <ion-buttons slot="end" (click)="logout()" *ngIf="showLogoutButton">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
     <ion-title>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>

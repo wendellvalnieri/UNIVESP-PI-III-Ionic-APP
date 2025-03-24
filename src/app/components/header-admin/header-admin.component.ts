@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header-admin',
@@ -12,15 +13,22 @@ export class HeaderAdminComponent implements OnInit {
   @Input() title: string = '';
   @Input() showBackButton: boolean = false;
   @Input() showCloseButton: boolean = false;
+  @Input() showLogoutButton: boolean = true;
   @Input() defaultBackUrl: string = '/';
   @Output() btnCloseAction = new EventEmitter<string>();
 
-  constructor(private menu: MenuController) { }
+  constructor(
+    private menu: MenuController,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() { }
 
   close() {
     this.btnCloseAction.emit();
+  }
+  logout() {
+    this.authService.logout();
   }
 
   openEnd() {

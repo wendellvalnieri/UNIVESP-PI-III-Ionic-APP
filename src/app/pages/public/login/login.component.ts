@@ -22,11 +22,12 @@ export class LoginComponent implements OnInit {
     private router: Router,
   ) { }
 
-  async ngOnInit(): Promise<void> {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate([`admin`, `home`]);
-      return;
-    }
+  ngOnInit() {
+    this.authService.isAuthenticated().subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.router.navigate(['/admin']);
+      }
+    });
   }
 
   async onSubmitLogin(form: NgForm) {
@@ -37,10 +38,10 @@ export class LoginComponent implements OnInit {
 
       this.mensagensService.hideLoading();
 
-      if (response.message == "success") {
-        this.authService.setUser(response.data);
+      if (response.success) {
+        await this.authService.setUser(response.data);
 
-        this.router.navigate([`admin`, `sensors`, `list`]);
+        this.router.navigate([`admin`]);
 
         this.mensagensService.hideLoading();
         form.reset();

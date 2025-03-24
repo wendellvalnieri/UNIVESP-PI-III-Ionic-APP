@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './interceptors/auth.guard';
 
 const routes: Routes = [
   {
@@ -9,7 +10,8 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/pages-admin.module').then(m => m.PagesAdminPageModule)
+    loadChildren: () => import('./pages/admin/pages-admin.module').then(m => m.PagesAdminPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'public',

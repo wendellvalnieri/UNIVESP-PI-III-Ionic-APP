@@ -18,7 +18,6 @@ import { HomeComponent } from './home/home.component';
     PagesPublicPageRoutingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-
   declarations: [PagesPublicPage, LoginComponent, HomeComponent]
 })
 export class PagesPublicPageModule { }

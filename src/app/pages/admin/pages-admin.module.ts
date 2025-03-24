@@ -9,6 +9,7 @@ import { PagesAdminPageRoutingModule } from './pages-admin-routing.module';
 import { PagesAdminPage } from './pages-admin.page';
 import { HeaderAdminModule } from 'src/app/components/header-admin/header-admin.module';
 import { MenuAdminModule } from 'src/app/components/menu-admin/menu-admin.module';
+import { HomeAdminComponent } from './home/home-admin.component';
 
 @NgModule({
   imports: [
@@ -17,8 +18,8 @@ import { MenuAdminModule } from 'src/app/components/menu-admin/menu-admin.module
     IonicModule,
     PagesAdminPageRoutingModule,
     HeaderAdminModule,
-    MenuAdminModule
+    MenuAdminModule,
   ],
-  declarations: [PagesAdminPage]
+  declarations: [PagesAdminPage, HomeAdminComponent]
 })
 export class PagesAdminPageModule { }
