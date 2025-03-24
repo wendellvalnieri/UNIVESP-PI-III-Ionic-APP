@@ -1,10 +1,10 @@
-// src/app/pages/agendamentos/agendamentos.page.ts
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { AgendamentoFormComponent } from './agendamento-form/agendamento-form.component';
 import { Agendamento } from 'src/app/models/agendamento.model';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-agendamentos',
@@ -22,10 +22,13 @@ export class AgendamentosPage implements OnInit {
     private modalController: ModalController,
     private alertController: AlertController,
     private loadingController: LoadingController,
-    private mensagensService: MensagensService
+    private mensagensService: MensagensService,
+    private appService: AppService
   ) { }
 
   ngOnInit() {
+    this.appService.setTitle('Agendamento');
+
     this.carregarAgendamentos();
   }
 
@@ -35,7 +38,7 @@ export class AgendamentosPage implements OnInit {
     await this.mensagensService.showLoading('Carregando agendamentos...');
 
     const data = new Date(this.dataFiltro);
-    const response = await this.agendamentoService.getTodosAgendamentos(data);
+    const response = await this.agendamentoService.getAgendamentosByUser(data);
 
     this.mensagensService.hideLoading();
 
@@ -68,7 +71,7 @@ export class AgendamentosPage implements OnInit {
   async confirmarCancelamento(agendamento: Agendamento) {
     const alert = await this.alertController.create({
       header: 'Confirmar cancelamento',
-      message: `Deseja realmente cancelar este agendamento de ${agendamento.clienteNome}?`,
+      message: `Deseja realmente cancelar este agendamento de ${agendamento.nome_cliente}?`,
       buttons: [
         {
           text: 'Cancelar',

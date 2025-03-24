@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import axios from 'axios';
-
+import { Storage } from '@ionic/storage-angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +15,12 @@ export class ApiAxiosService {
     }
   });
 
-  constructor() {
-    this.request.interceptors.request.use((request: any) => {
-      const existToken = this.isTokenSetted();
+  constructor(
+    private storage: Storage,
+  ) {
+
+    this.request.interceptors.request.use(async (request: any) => {
+      const existToken = await this.isTokenSetted();
       if (existToken.isSetted) {
         request.headers["Authorization"] = `Bearer ${existToken.token}`;
       }
@@ -104,11 +107,12 @@ export class ApiAxiosService {
     }
   }
 
-  isTokenSetted() {
-    if (sessionStorage['token']) {
+  async isTokenSetted() {
+    const token = await this.storage.get('token');
+    if (token) {
       return {
         isSetted: true,
-        token: sessionStorage.getItem('token'),
+        token: token,
       };
     }
     return {

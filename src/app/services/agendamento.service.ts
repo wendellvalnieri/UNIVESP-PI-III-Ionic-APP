@@ -14,8 +14,8 @@ export class AgendamentoService extends CrudService<Agendamento> {
         super(apiService);
     }
 
-    async getTodosAgendamentos(data: Date): Promise<any> {
-        const response = await this.getAll(this.endpoint, { data: data.toISOString() });
+    async getAgendamentosByUser(date: Date): Promise<any> {
+        const response = await this.getAll(`${this.endpoint}/byUser`, { date: date.toISOString() });
         return response;
     }
 }

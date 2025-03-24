@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  appName: "Tamy Beleza",
   apiUrl: 'http://localhost:4333',
   prod_sulfix: 'prod',
 };

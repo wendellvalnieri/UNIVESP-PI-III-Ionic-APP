@@ -1,16 +1,13 @@
 export interface Agendamento {
     id: number;
-    clienteId: number;
-    clienteNome: string;
-    servicoId: number;
-    servicoNome: string;
+    nome_cliente: string;
+    nome_servico: string;
     data: string;
     horario: string;
     status: number;
-    valor: number;
+    preco: number;
     observacoes?: string;
-    profissionalId?: number;
-    profissionalNome?: string;
-    data_reserva: Date,
-    hora_reserva: Date
+    data_reserva: Date;
+    hora_reserva: Date;
+    imagem: string;
 }
