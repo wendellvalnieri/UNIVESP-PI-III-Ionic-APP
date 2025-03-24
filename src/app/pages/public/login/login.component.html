@@ -1,13 +1,13 @@
-<ion-grid>
-  <form #formLogin="ngForm" (ngSubmit)="onSubmitLogin(formLogin)">
-    <ion-row>
-      <ion-col size="8" offset="2">
-        <ion-img src="assets/icon/logo-dark.png" alt="Tammy Beleza" class="dark"> </ion-img>
-        <ion-img src="assets/icon/logo-white.png" alt="Tammy Beleza" class="white"> </ion-img>
+<ion-grid class="ion-align-items-center">
+  <form #formLogin="ngForm" (ngSubmit)="onSubmitLogin(formLogin)" class="login-form">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="8" size-md="6" size-lg="4" class="ion-text-center logo-container">
+        <ion-img src="assets/icon/logo-dark.png" alt="Tammy Beleza" class="dark"></ion-img>
+        <ion-img src="assets/icon/logo-white.png" alt="Tammy Beleza" class="light"></ion-img>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8" size-lg="6">
         <ion-list>
           <ion-item>
             <ion-label position="floating">Usuário</ion-label>
@@ -22,9 +22,9 @@
         </ion-list>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-button [disabled]="formLogin.invalid" type="submit" expand="block">Acessar </ion-button>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="8" size-lg="6">
+        <ion-button [disabled]="formLogin.invalid" type="submit" expand="block">Acessar</ion-button>
       </ion-col>
     </ion-row>
   </form>

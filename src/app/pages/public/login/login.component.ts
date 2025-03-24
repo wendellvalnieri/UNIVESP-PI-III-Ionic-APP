@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         form.reset();
         return;
       }
-      this.mensagensService.showError(response.message);
+      this.mensagensService.showError(response?.message || response);
       return;
     }
     this.mensagensService.showError("Preencha todos os campos corretamente");
