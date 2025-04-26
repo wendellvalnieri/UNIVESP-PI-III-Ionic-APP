@@ -7,8 +7,9 @@ import { Servico } from '../models/servico.model';
     providedIn: 'root'
 })
 export class ServicoService extends CrudService<Servico> {
-    private readonly endpoint = 'servicos';
-
+    protected get endpoint(): string {
+        return 'servicos';
+    }
     constructor(apiService: ApiAxiosService) {
         super(apiService);
     }

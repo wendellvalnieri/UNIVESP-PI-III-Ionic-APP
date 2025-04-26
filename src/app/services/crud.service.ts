@@ -5,8 +5,10 @@ import { ResponseAPI } from '../models/responseAPI.model';
 @Injectable({
     providedIn: 'root'
 })
-export class CrudService<T> {
-    constructor(private apiService: ApiAxiosService) { }
+export abstract class CrudService<T> {
+    protected abstract get endpoint(): string;
+
+    constructor(protected apiService: ApiAxiosService) { }
 
     // Create a new resource
     async create(endpoint: string, data: T): Promise<any> {
@@ -14,7 +16,9 @@ export class CrudService<T> {
     }
 
     // Get all resources
-    async getAll(endpoint: string, params?: any): Promise<ResponseAPI> {
+
+    async getAll(customEndpoint?: string, params?: any): Promise<any> {
+        const endpoint = customEndpoint || this.endpoint;
         return this.apiService.read(endpoint, params);
     }
 

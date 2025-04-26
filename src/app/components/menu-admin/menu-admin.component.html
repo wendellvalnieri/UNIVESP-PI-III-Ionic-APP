@@ -1,13 +1,9 @@
 <ion-list id="inbox-list">
   <ion-list-header>
     <ion-row>
-      <ion-col size="12">Salão</ion-col>
+      <ion-col size="12">{{empresa.nome}}</ion-col>
     </ion-row>
   </ion-list-header>
-  <ion-note>
-    <a href="mailto:" class="withoutLink"></a>
-    <p> {{empresa}}</p>
-  </ion-note>
 
   <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index" type="push">
     <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
@@ -18,11 +14,12 @@
 </ion-list>
 <ion-list>
   <ion-list-header>Administrativo</ion-list-header>
-    <ion-menu-toggle auto-hide="false" *ngFor="let service of services; let i = index" type="push">
-      <ion-item routerDirection="root" [routerLink]="[service.url]" lines="none" detail="false" routerLinkActive="selected">
-        <ion-icon slot="start" [ios]="service.icon + '-outline'" [md]="service.icon + '-sharp'"></ion-icon>
-        <ion-label>{{ service.title }}</ion-label>
-      </ion-item>
+  <ion-menu-toggle auto-hide="false" *ngFor="let service of services; let i = index" type="push">
+    <ion-item routerDirection="root" [routerLink]="[service.url]" lines="none" detail="false"
+      routerLinkActive="selected">
+      <ion-icon slot="start" [ios]="service.icon + '-outline'" [md]="service.icon + '-sharp'"></ion-icon>
+      <ion-label>{{ service.title }}</ion-label>
+    </ion-item>
   </ion-menu-toggle>
 </ion-list>
 <ion-list>
@@ -31,4 +28,37 @@
     <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
     <ion-label>Logout</ion-label>
   </ion-item>
+</ion-list>
+
+<ion-list>
+  <ion-list-header>Informações</ion-list-header>
+
+  <ion-item>
+    <ion-label>
+      <a [href]="empresa.site" target="_blank">
+        <p>{{empresa.endereco.rua}} - {{empresa.endereco.bairro}} - {{empresa.endereco.cep}}</p>
+        <p>{{empresa.endereco.cidade}} - {{empresa.endereco.estado}}</p>
+      </a>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <a [href]="'https://wa.me/' + empresa.whatsapp" target="_blank">
+        <p>Whatsapp: {{empresa.telefone}}</p>
+      </a>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <p>
+        <a [href]="empresa.redes_sociais.facebook" target="_blank">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <a [href]="empresa.redes_sociais.instagram" target="_blank">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a>
+      </p>
+    </ion-label>
+  </ion-item>
+
 </ion-list>

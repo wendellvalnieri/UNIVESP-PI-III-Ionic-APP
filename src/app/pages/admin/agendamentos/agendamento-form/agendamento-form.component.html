@@ -1,1 +1,72 @@
-agendamentos
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Agendamento</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismissModal()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="service-image-container" *ngIf="agendamento?.servico_id">
+        <ion-img [src]="agendamento.imagem || 'assets/images/default-service.png'" alt="Imagem do serviço"
+            class="service-image">
+        </ion-img>
+        <h2 class="service-name ion-text-center ion-padding-top">{{agendamento.nome_servico}}</h2>
+    </div>
+
+    <form [formGroup]="agendamentoForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-item>
+                <ion-label position="stacked">Serviço *</ion-label>
+                <ion-select formControlName="servicoId" interface="action-sheet" placeholder="Selecione um serviço">
+                    <ion-select-option *ngFor="let servico of servicos" [value]="servico.id">
+                        {{ servico.nome }} - R$ {{ servico.preco}}
+                    </ion-select-option>
+                </ion-select>
+                <ion-note slot="error"
+                    *ngIf="agendamentoForm.get('servicoId')?.touched && agendamentoForm.get('servicoId')?.hasError('required')">
+                    Selecione um serviço
+                </ion-note>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Data *</ion-label>
+                <ion-input type="date" formControlName="data" (ionChange)="validarDisponibilidade()"></ion-input>
+                <ion-note slot="error"
+                    *ngIf="agendamentoForm.get('data')?.touched && agendamentoForm.get('data')?.hasError('required')">
+                    A data é obrigatória
+                </ion-note>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Hora *</ion-label>
+                <ion-input type="time" formControlName="hora" (ionChange)="validarDisponibilidade()"></ion-input>
+                <ion-note slot="error"
+                    *ngIf="agendamentoForm.get('hora')?.touched && agendamentoForm.get('hora')?.hasError('required')">
+                    A hora é obrigatória
+                </ion-note>
+            </ion-item>
+
+            <ion-item *ngIf="dataHoraInvalida" lines="none">
+                <ion-text color="danger">
+                    <p>Atenção: Este horário já está ocupado!</p>
+                </ion-text>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Observações</ion-label>
+                <ion-textarea formControlName="observacoes" rows="4"
+                    placeholder="Observações adicionais..."></ion-textarea>
+            </ion-item>
+        </ion-list>
+
+        <div class="ion-padding">
+            <ion-button expand="block" type="submit" [disabled]="agendamentoForm.invalid || isLoading">
+                <ion-spinner *ngIf="isLoading" name="circles"></ion-spinner>
+                <span *ngIf="!isLoading">{{ agendamento?.id ? 'Atualizar' : 'Agendar' }}</span>
+            </ion-button>
+        </div>
+    </form>
+</ion-content>

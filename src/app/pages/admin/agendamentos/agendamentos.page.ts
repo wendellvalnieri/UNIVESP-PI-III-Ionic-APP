@@ -55,8 +55,10 @@ export class AgendamentosPage implements OnInit {
     const modal = await this.modalController.create({
       component: AgendamentoFormComponent,
       componentProps: {
-        agendamento: agendamento
-      }
+        agendamento: agendamento,
+      },
+      showBackdrop: true,
+      backdropDismiss: true
     });
 
     modal.onDidDismiss().then((data) => {

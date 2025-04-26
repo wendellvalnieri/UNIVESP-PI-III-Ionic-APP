@@ -37,7 +37,7 @@ export class ApiAxiosService {
   async readId(url: String, id: Number) {
     try {
       const response = await this.request.get(`${url}/${id}`);
-      return await (response.data.data);
+      return await (response.data);
     } catch (error: any) {
       const errorMessage = this.formatErrorMessage(error);
       return errorMessage;
