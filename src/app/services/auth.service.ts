@@ -34,13 +34,7 @@ export class AuthService {
         this._storage = storage;
 
         this.checkToken();
-
-        /*  const token = await this.storage.get('token');
-         if (token) {
-             this.loadUserFromToken(token);
-         } */
     }
-
 
     async checkToken() {
         const token = await this._storage?.get('token');
