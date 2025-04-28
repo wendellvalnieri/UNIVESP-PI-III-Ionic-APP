@@ -6,9 +6,9 @@ import { Servico } from '../models/servico.model';
 @Injectable({
     providedIn: 'root'
 })
-export class ServicoService extends CrudService<Servico> {
+export class ProfissionaisService extends CrudService<Servico> {
 
     constructor(apiService: ApiAxiosService) {
-        super(apiService, 'servicos');
+        super(apiService, 'profissionais');
     }
 }

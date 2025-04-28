@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { empresa } from 'src/app/data/empresa';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,10 +13,11 @@ export class MenuAdminComponent implements OnInit {
   public appPages = [
     { title: 'Dashboard', url: '/admin', icon: 'paper-plane' },
   ];
-  public services = [
+  public menu = [
     { title: 'Agendamentos', url: '/admin/agendamentos', icon: 'archive' },
+    { title: 'Serviços', url: '/admin/servicos', icon: 'archive' },
   ];
-  empresa: any = empresa
+  empresa: any;
 
   constructor(
     private authService: AuthService,
@@ -25,7 +25,8 @@ export class MenuAdminComponent implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   async logoutAlert() {
     const alert = await this.alertController.create({

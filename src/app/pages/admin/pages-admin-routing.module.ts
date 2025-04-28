@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PagesAdminPage } from './pages-admin.page';
 import { HomeAdminComponent } from './home/home-admin.component';
 import { AgendamentosPage } from './agendamentos/agendamentos.page';
+import { ServicosPage } from './servicos/servicos.page';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
       {
         path: 'profissionais',
         component: AgendamentosPage,
-      }
+      },
+      {
+        path: 'servicos',
+        component: ServicosPage,
+      },
     ]
   }
 ];

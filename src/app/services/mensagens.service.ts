@@ -176,4 +176,14 @@ export class MensagensService {
       throw error;
     }
   }
+
+
+  closeAllAlerts() {
+    this.hideLoading();
+    this.alertController.dismiss().then(() => {
+      this.toastController.dismiss().then(() => {
+        this.loadingController.dismiss();
+      });
+    });
+  }
 }

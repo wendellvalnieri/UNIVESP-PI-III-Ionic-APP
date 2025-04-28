@@ -17,6 +17,7 @@ export class AuthService {
     private _storage: Storage | null = null;
     private authState = new BehaviorSubject(false);
 
+
     constructor(
         private apiAxios: ApiAxiosService,
         private storage: Storage,
@@ -28,10 +29,16 @@ export class AuthService {
     }
 
     async init() {
+
         const storage = await this.storage.create();
         this._storage = storage;
 
         this.checkToken();
+
+        /*  const token = await this.storage.get('token');
+         if (token) {
+             this.loadUserFromToken(token);
+         } */
     }
 
 

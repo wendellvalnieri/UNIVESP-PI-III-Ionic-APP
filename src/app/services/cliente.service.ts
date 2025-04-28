@@ -7,9 +7,7 @@ import { Cliente } from '../models/cliente.model';
     providedIn: 'root'
 })
 export class ClienteService extends CrudService<Cliente> {
-    private readonly endpoint = 'clients';
-
     constructor(apiService: ApiAxiosService) {
-        super(apiService);
+        super(apiService, 'clients');
     }
 }
