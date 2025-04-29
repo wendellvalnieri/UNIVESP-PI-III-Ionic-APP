@@ -3,6 +3,8 @@ import { ModalController, AlertController, LoadingController } from '@ionic/angu
 import { AppService } from 'src/app/services/app.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { ServicoService } from 'src/app/services/servico.service';
+import { Servico } from './servico.interface';
+import { ServicoDetalheComponent } from './servico-detalhe/servico-detalhe.component';
 
 @Component({
   selector: 'app-servicos',
@@ -10,13 +12,19 @@ import { ServicoService } from 'src/app/services/servico.service';
   styleUrls: ['./servicos.page.scss'],
   standalone: false
 })
+
 export class ServicosPage implements OnInit {
   carregando = false;
-  servicos: any[] = [];
+  servicos: Servico[] = [];
+
+  servicosFiltrados: Servico[] = [];
+  searchTerm: string = '';
+
   constructor(
     private appService: AppService,
     private mensagensService: MensagensService,
-    private servicoService: ServicoService
+    private servicoService: ServicoService,
+    private modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -41,6 +49,48 @@ export class ServicosPage implements OnInit {
     }
 
     this.servicos = response.data;
+    this.servicosFiltrados = [...this.servicos];
+  }
 
+  async abrirDetalhesServico(servico: Servico) {
+    const modal = await this.modalController.create({
+      component: ServicoDetalheComponent,
+      componentProps: {
+        servico: servico,
+      },
+      showBackdrop: true,
+      backdropDismiss: true
+    });
+
+    modal.onDidDismiss().then((data) => {
+
+    });
+
+    return await modal.present();
+  }
+
+  filtrarServico() {
+    if (!this.searchTerm) {
+      this.servicosFiltrados = [...this.servicos];
+      return;
+    }
+
+    const searchTermLower = this.searchTerm.toLowerCase();
+    this.servicosFiltrados = this.servicos.filter(servico =>
+      servico.nome.toLowerCase().includes(searchTermLower) ||
+      (servico.descricao && servico.descricao.toLowerCase().includes(searchTermLower))
+    );
+  }
+
+  formatarPreco(price: string): string {
+    const priceNum = parseFloat(price);
+    if (priceNum === 0) {
+      return 'Consulte';
+    }
+    return `R$ ${priceNum.toFixed(2).replace('.', ',')}`;
+  }
+
+  getDefaultImage(): string {
+    return 'assets/images/default-service.png';
   }
 }

@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filtrarServico()" placeholder="Buscar serviços"
+            animated></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="carregarServicos()">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <div *ngIf="carregando" class="loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Carregando serviços...</p>
+    </div>
+
+    <ion-grid *ngIf="!carregando">
+        <ion-row>
+            <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let servico of servicosFiltrados">
+                <ion-card (click)="abrirDetalhesServico(servico)">
+                    <div class="service-image-container">
+                        <ion-img *ngIf="servico.imagem" [src]="servico.imagem"
+                            (ionError)="$event.target.src = getDefaultImage()" alt="{{ servico.nome }}">
+                        </ion-img>
+                        <ion-img *ngIf="!servico.imagem" [src]="getDefaultImage()" alt="{{ servico.nome }}">
+                        </ion-img>
+                        {{ servico.preco | currency}}
+                    </div>
+                    <ion-card-header>
+                        <ion-card-title>{{ servico.nome }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p *ngIf="servico.descricao">{{ servico.descricao }}</p>
+                        <p *ngIf="!servico.descricao" class="no-description">Entre em contato para mais informações</p>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-infinite-scroll threshold="100px">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais serviços...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div *ngIf="!carregando && servicosFiltrados.length === 0" class="no-results">
+        <ion-icon name="search-outline" size="large"></ion-icon>
+        <h3>Nenhum serviço encontrado</h3>
+        <p>Tente uma nova busca</p>
+    </div>
+</ion-content>

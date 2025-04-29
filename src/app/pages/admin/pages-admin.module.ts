@@ -12,6 +12,7 @@ import { MenuAdminModule } from 'src/app/components/menu-admin/menu-admin.module
 import { HomeAdminComponent } from './home/home-admin.component';
 import { AgendamentosPageModule } from './agendamentos/agendamentos.module';
 import { SettingsPage } from './settings/settings.page';
+import { ServicosPageModule } from './servicos/servicos.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { SettingsPage } from './settings/settings.page';
     PagesAdminPageRoutingModule,
     HeaderAdminModule,
     MenuAdminModule,
-    AgendamentosPageModule
+    AgendamentosPageModule,
+    ServicosPageModule
   ],
   declarations: [PagesAdminPage, HomeAdminComponent, SettingsPage]
 })

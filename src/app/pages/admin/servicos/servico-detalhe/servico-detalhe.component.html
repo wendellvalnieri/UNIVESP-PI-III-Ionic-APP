@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ servico?.nome }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="loading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Carregando detalhes do serviço...</p>
+  </div>
+
+  <div *ngIf="!loading && servico" class="service-detail-container">
+    <div class="service-image-container">
+      <ion-img *ngIf="servico.imagem" [src]="servico.imagem" (ionError)="$event.target.src = getDefaultImage()"
+        alt="{{ servico.nome }}">
+      </ion-img>
+      <ion-img *ngIf="!servico.imagem" [src]="getDefaultImage()" alt="{{ servico.nome }}">
+      </ion-img>
+    </div>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Detalhes do serviço</ion-card-subtitle>
+        <ion-card-title>{{ servico.nome }}</ion-card-title>
+        <div class="price-tag">
+          {{ servico.preco | currency }}
+        </div>
+        <div class="price-tag consult" *ngIf="!servico.preco">
+          Preço sob consulta
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="description-section">
+          <h3>Descrição</h3>
+          <p *ngIf="servico.descricao">{{ servico.descricao }}</p>
+          <p *ngIf="!servico.descricao" class="no-description">
+            Informações detalhadas sobre este serviço estão disponíveis ao entrar em contato com o salão.
+          </p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
