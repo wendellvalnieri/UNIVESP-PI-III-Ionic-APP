@@ -28,14 +28,9 @@ export class SettingsPage implements OnInit {
   async ngOnInit() {
     await this.storage.create();
     this.darkMode = await this.storage.get('darkMode') || false;
-    this.fontSize = await this.storage.get('fontSize') || 100;   
+    this.fontSize = await this.storage.get('fontSize') || 100;
     this.highContrast = await this.storage.get('highContrast') || false;
     this.reduceMotion = await this.storage.get('reduceMotion') || false;
-  }
-
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-    this.accessibilityService.setDarkMode(this.darkMode);
   }
 
   changeFontSize(increase: boolean) {
@@ -51,17 +46,26 @@ export class SettingsPage implements OnInit {
     this.accessibilityService.setFontSize(this.fontSize);
   }
 
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    this.accessibilityService.setDarkMode(this.darkMode);
+  }
+
   toggleHighContrast() {
     this.highContrast = !this.highContrast;
-    this.accessibilityService.setHighContrast(!this.highContrast);
+    this.accessibilityService.setHighContrast(this.highContrast);
   }
 
   toggleReduceMotion() {
     this.reduceMotion = !this.reduceMotion;
-    this.accessibilityService.setReduceMotion(!this.reduceMotion);
+    this.accessibilityService.setReduceMotion(this.reduceMotion);
   }
 
   resetSettings() {
+    this.darkMode = false;
+    this.fontSize = 100;
+    this.highContrast = false;
+    this.reduceMotion = false;
     this.accessibilityService.resetSettings();
   }
   dismissModal() {
