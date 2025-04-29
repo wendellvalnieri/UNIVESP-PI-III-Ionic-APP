@@ -18,6 +18,19 @@
   <!-- add to homescreen for ios -->
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <script>
+    document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    try {
+      const fontSize = localStorage.getItem('accessibilityDB/fontSize');
+      if (fontSize) {
+        document.documentElement.style.fontSize = `${JSON.parse(fontSize)}%`;
+      }
+    } catch (e) {
+      console.log('Erro ao carregar preferências iniciais:', e);
+    }
+  </script>
 </head>
 
 <body>

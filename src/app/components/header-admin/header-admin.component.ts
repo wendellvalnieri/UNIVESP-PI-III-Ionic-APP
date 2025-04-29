@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { SettingsPage } from 'src/app/pages/admin/settings/settings.page';
 import { AppService } from 'src/app/services/app.service';
 
 @Component({
@@ -19,7 +21,11 @@ export class HeaderAdminComponent implements OnInit {
 
   private titleSubscription: Subscription;
 
-  constructor(private appService: AppService) {
+
+  constructor(
+    private appService: AppService,
+    private modalController: ModalController
+  ) {
     this.titleSubscription = this.appService.title$.subscribe(
       (newTitle) => (this.title = newTitle)
     );
@@ -36,8 +42,23 @@ export class HeaderAdminComponent implements OnInit {
     menu.hidden = !menu.hidden;
   }
 
-
   ngOnDestroy(): void {
     this.titleSubscription.unsubscribe();
+  }
+
+  async openSettings() {
+    const modal = await this.modalController.create({
+      component: SettingsPage,
+      componentProps: {
+      },
+      showBackdrop: true,
+      backdropDismiss: true
+    });
+
+    modal.onDidDismiss().then((data) => {
+      if (data.data) { }
+    });
+
+    return await modal.present();
   }
 }

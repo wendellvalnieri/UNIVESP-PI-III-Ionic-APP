@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { AccessibilityService } from './services/accessibility.service';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,19 @@ export class AppComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-  ) { }
+    private platform: Platform,
+    private accessibilityService: AccessibilityService
+
+  ) {
+    this.initializeApp();
+  }
+
+  async initializeApp() {
+    await this.platform.ready();
+
+    await this.accessibilityService.init();
+  }
+
 
   goToInit() {
     this.authService.logout();

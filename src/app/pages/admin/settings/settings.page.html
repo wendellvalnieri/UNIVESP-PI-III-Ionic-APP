@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Configurações</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismissModal()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+            <ion-label>Aparência</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+            <ion-icon name="moon-outline" slot="start"></ion-icon>
+            <ion-label>Modo Escuro</ion-label>
+            <ion-toggle [(ngModel)]="darkMode" (ionChange)="toggleDarkMode()"></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="none">
+            <ion-icon name="text-outline" slot="start"></ion-icon>
+            <ion-label>Tamanho da Fonte ({{ fontSize }}%)</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-button fill="clear" (click)="changeFontSize(false)">
+                <ion-icon slot="icon-only" name="remove-circle-outline"></ion-icon>
+            </ion-button>
+            <ion-range [(ngModel)]="fontSize" min="70" max="200" step="10"
+                (ionChange)="applyFontSize(fontSize); ">
+            </ion-range>
+            <ion-button fill="clear" (click)="changeFontSize(true)">
+                <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            </ion-button>
+        </ion-item>
+
+        <ion-list-header>
+            <ion-label>Acessibilidade</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+            <ion-icon name="contrast-outline" slot="start"></ion-icon>
+            <ion-label>Alto Contraste</ion-label>
+            <ion-toggle [(ngModel)]="highContrast" (ionChange)="toggleHighContrast()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-icon name="move-outline" slot="start"></ion-icon>
+            <ion-label>Reduzir Animações</ion-label>
+            <ion-toggle [(ngModel)]="reduceMotion" (ionChange)="toggleReduceMotion()"></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="none">
+            <ion-button expand="block" fill="outline" (click)="resetSettings()">
+                Restaurar Configurações Padrão
+            </ion-button>
+        </ion-item>
+    </ion-list>
+</ion-content>

@@ -33,9 +33,116 @@
  */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+@import "@ionic/angular/css/palettes/dark.class.css";
+/*@import "@ionic/angular/css/palettes/dark.system.css";*/
 @import "app/style.scss";
 
 @import 'swiper/scss';
 @import '@ionic/angular/css/ionic-swiper';
+
+/* settings.page.scss */
+
+/* Estilos para o modo escuro */
+:root {
+    --ion-color-step-50: #0d0d0d;
+    --ion-color-step-100: #1a1a1a;
+    --ion-color-step-150: #262626;
+    --ion-color-step-200: #333333;
+    --ion-color-step-250: #404040;
+    --ion-color-step-300: #4d4d4d;
+    --ion-color-step-350: #595959;
+    --ion-color-step-400: #666666;
+    --ion-color-step-450: #737373;
+    --ion-color-step-500: #808080;
+    --ion-color-step-550: #8c8c8c;
+    --ion-color-step-600: #999999;
+    --ion-color-step-650: #a6a6a6;
+    --ion-color-step-700: #b3b3b3;
+    --ion-color-step-750: #bfbfbf;
+    --ion-color-step-800: #cccccc;
+    --ion-color-step-850: #d9d9d9;
+    --ion-color-step-900: #e6e6e6;
+    --ion-color-step-950: #f2f2f2;
+}
+
+/* Estilos para o modo de alto contraste */
+.high-contrast {
+    --ion-background-color: #000000;
+    --ion-background-color-rgb: 0, 0, 0;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+
+    --ion-color-primary: #ffff00;
+    --ion-color-primary-contrast: #000000;
+
+    --ion-color-secondary: #00ffff;
+    --ion-color-secondary-contrast: #000000;
+
+    --ion-item-background: #000000;
+    --ion-toolbar-background: #000000;
+    --ion-tab-bar-background: #000000;
+
+    ion-button {
+        --background: #ffffff;
+        --color: #000000;
+    }
+
+    ion-toggle {
+        --background: #333333;
+        --background-checked: #ffff00;
+        --handle-background: #ffffff;
+        --handle-background-checked: #000000;
+    }
+
+    ion-range {
+        --bar-background: #333333;
+        --bar-background-active: #ffff00;
+        --knob-background: #ffffff;
+    }
+}
+
+/* Estilos para a redução de movimento */
+.reduce-motion {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+}
+
+/* Ajustes gerais de layout */
+ion-list-header {
+    margin-top: 16px;
+}
+
+ion-button[expand="block"] {
+    margin: 16px;
+}
+
+/* Estilos responsivos */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Configurações padrão do sistema para modo escuro */
+    }
+}
+
+/* Estilização do range */
+ion-range {
+    --bar-height: 4px;
+    --knob-size: 24px;
+    padding: 0 8px;
+}
+
+/* Animação suave para troca de temas */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Indicador visual para tamanho da fonte */
+.font-size-preview {
+    text-align: center;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background-color: var(--ion-color-light);
+}

@@ -1,0 +1,70 @@
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
+import { ModalController, Platform } from '@ionic/angular';
+import { AppService } from 'src/app/services/app.service';
+import { AccessibilityService } from 'src/app/services/accessibility.service';
+
+@Component({
+  selector: 'app-settings',
+  templateUrl: './settings.page.html',
+  styleUrls: ['./settings.page.scss'],
+  standalone: false
+})
+export class SettingsPage implements OnInit {
+  darkMode = false;
+  fontSize = 100; // porcentagem do tamanho da fonte padrão
+  highContrast = false;
+  reduceMotion = false;
+
+  constructor(
+    public storage: Storage,
+    private renderer: Renderer2,
+    private platform: Platform,
+    private appService: AppService,
+    private modalController: ModalController,
+    private accessibilityService: AccessibilityService
+  ) { }
+
+  async ngOnInit() {
+    await this.storage.create();
+    this.darkMode = await this.storage.get('darkMode') || false;
+    this.fontSize = await this.storage.get('fontSize') || 100;   
+    this.highContrast = await this.storage.get('highContrast') || false;
+    this.reduceMotion = await this.storage.get('reduceMotion') || false;
+  }
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    this.accessibilityService.setDarkMode(this.darkMode);
+  }
+
+  changeFontSize(increase: boolean) {
+    if (increase && this.fontSize < 200) {
+      this.fontSize += 10;
+    } else if (!increase && this.fontSize > 70) {
+      this.fontSize -= 10;
+    }
+    this.accessibilityService.setFontSize(this.fontSize);
+  }
+  applyFontSize(fontSize: number) {
+    this.fontSize = fontSize;
+    this.accessibilityService.setFontSize(this.fontSize);
+  }
+
+  toggleHighContrast() {
+    this.highContrast = !this.highContrast;
+    this.accessibilityService.setHighContrast(!this.highContrast);
+  }
+
+  toggleReduceMotion() {
+    this.reduceMotion = !this.reduceMotion;
+    this.accessibilityService.setReduceMotion(!this.reduceMotion);
+  }
+
+  resetSettings() {
+    this.accessibilityService.resetSettings();
+  }
+  dismissModal() {
+    this.modalController.dismiss();
+  }
+}

@@ -5,6 +5,7 @@ import { PagesAdminPage } from './pages-admin.page';
 import { HomeAdminComponent } from './home/home-admin.component';
 import { AgendamentosPage } from './agendamentos/agendamentos.page';
 import { ServicosPage } from './servicos/servicos.page';
+import { SettingsPage } from './settings/settings.page';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'servicos',
         component: ServicosPage,
+      },
+      {
+        path: 'settings',
+        component: SettingsPage,
       },
     ]
   }

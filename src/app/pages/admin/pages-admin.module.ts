@@ -11,6 +11,7 @@ import { HeaderAdminModule } from 'src/app/components/header-admin/header-admin.
 import { MenuAdminModule } from 'src/app/components/menu-admin/menu-admin.module';
 import { HomeAdminComponent } from './home/home-admin.component';
 import { AgendamentosPageModule } from './agendamentos/agendamentos.module';
+import { SettingsPage } from './settings/settings.page';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { AgendamentosPageModule } from './agendamentos/agendamentos.module';
     MenuAdminModule,
     AgendamentosPageModule
   ],
-  declarations: [PagesAdminPage, HomeAdminComponent]
+  declarations: [PagesAdminPage, HomeAdminComponent, SettingsPage]
 })
 export class PagesAdminPageModule { }
