@@ -1,14 +1,4 @@
 <ion-list id="inbox-list">
-  <ion-list-header>
-    <ion-row>
-      <ion-col size="12">Salão</ion-col>
-    </ion-row>
-  </ion-list-header>
-  <ion-note>
-    <a href="mailto:" class="withoutLink"></a>
-    <p> {{empresa}}</p>
-  </ion-note>
-
   <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index" type="push">
     <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
       <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
