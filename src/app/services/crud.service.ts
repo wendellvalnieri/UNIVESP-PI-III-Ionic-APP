@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
 import { ApiAxiosService } from './api-axios.service';
-import { ResponseAPI } from '../models/responseAPI.model';
 
 @Injectable()
 

@@ -7,7 +7,6 @@ import { Servico } from '../models/servico.model';
     providedIn: 'root'
 })
 export class ServicoService extends CrudService<Servico> {
-
     constructor(apiService: ApiAxiosService) {
         super(apiService, 'servicos');
     }

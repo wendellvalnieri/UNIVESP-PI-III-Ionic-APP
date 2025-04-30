@@ -14,14 +14,14 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class AgendamentosPage implements OnInit {
   agendamentos: Agendamento[] = [];
+  agendamentosFiltrados: Agendamento[] = [];
   dataFiltro: string = new Date().toISOString().split('T')[0];
   carregando = false;
+  statusFiltro: string = 'todos';
 
   constructor(
     private agendamentoService: AgendamentoService,
     private modalController: ModalController,
-    private alertController: AlertController,
-    private loadingController: LoadingController,
     private mensagensService: MensagensService,
     private appService: AppService
   ) { }
@@ -44,11 +44,11 @@ export class AgendamentosPage implements OnInit {
 
     if (response.success) {
       this.agendamentos = response.data;
+      this.agendamentosFiltrados = [...this.agendamentos];
     }
     else {
       this.mensagensService.showErrorAlert('Não foi possível carregar os agendamentos. Por favor, tente novamente.');
     }
-
   }
 
   async abrirFormulario(agendamento?: Agendamento) {
@@ -61,97 +61,30 @@ export class AgendamentosPage implements OnInit {
       backdropDismiss: true
     });
 
-    modal.onDidDismiss().then((data) => {
-      if (data.data) {
-        this.carregarAgendamentos();
-      }
-    });
-
     return await modal.present();
-  }
-
-  async confirmarCancelamento(agendamento: Agendamento) {
-    const alert = await this.alertController.create({
-      header: 'Confirmar cancelamento',
-      message: `Deseja realmente cancelar este agendamento de ${agendamento.nome_cliente}?`,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Confirmar',
-          handler: () => {
-            this.cancelarAgendamento(agendamento.id);
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
-  async cancelarAgendamento(id: number) {
-    const loading = await this.loadingController.create({
-      message: 'Cancelando agendamento...'
-    });
-    await loading.present();
-
-    /* this.agendamentoService.cancelarAgendamento(id).subscribe(
-      () => {
-        loading.dismiss();
-        this.carregarAgendamentos();
-      },
-      async (error) => {
-        console.error('Erro ao cancelar agendamento:', error);
-        loading.dismiss();
-
-        const alert = await this.alertController.create({
-          header: 'Erro',
-          message: 'Não foi possível cancelar o agendamento. Por favor, tente novamente.',
-          buttons: ['OK']
-        });
-        await alert.present();
-      }
-    ); */
-  }
-
-  async concluirAgendamento(id: number) {
-    const loading = await this.loadingController.create({
-      message: 'Concluindo agendamento...'
-    });
-    await loading.present();
-
-    /*  this.agendamentoService.concluirAgendamento(id).subscribe(
-       () => {
-         loading.dismiss();
-         this.carregarAgendamentos();
-       },
-       async (error) => {
-         console.error('Erro ao concluir agendamento:', error);
-         loading.dismiss();
- 
-         const alert = await this.alertController.create({
-           header: 'Erro',
-           message: 'Não foi possível concluir o agendamento. Por favor, tente novamente.',
-           buttons: ['OK']
-         });
-         await alert.present();
-       }
-     ); */
   }
 
   onDataChange() {
     this.carregarAgendamentos();
   }
 
-  getStatusColor(status: number): string {
+  filtrarPorStatus() {
+    if (this.statusFiltro === 'todos') {
+      this.agendamentosFiltrados = [...this.agendamentos];
+    } else {
+      this.agendamentosFiltrados = this.agendamentos.filter(
+        (agendamento) => agendamento.status === this.statusFiltro
+      );
+    }
+  }
+
+  getStatusColor(status: string): string {
     switch (status) {
-      case 1:
-        return 'primary';
-      case 2:
+      case "cancelado":
+        return 'secondary';
+      case "agendado":
         return 'success';
-      case 3:
+      case "finalizado":
         return 'danger';
       default:
         return 'medium';

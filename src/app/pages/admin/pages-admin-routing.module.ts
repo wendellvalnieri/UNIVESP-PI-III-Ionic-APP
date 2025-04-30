@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PagesAdminPage } from './pages-admin.page';
 import { HomeAdminComponent } from './home/home-admin.component';
-import { AgendamentosPage } from './agendamentos/agendamentos.page';
-import { ServicosPage } from './servicos/servicos.page';
 import { SettingsPage } from './settings/settings.page';
 
 const routes: Routes = [
@@ -18,15 +16,11 @@ const routes: Routes = [
       },
       {
         path: 'agendamentos',
-        component: AgendamentosPage,
-      },
-      {
-        path: 'profissionais',
-        component: AgendamentosPage,
+        loadChildren: () => import('./agendamentos/agendamentos.module').then(m => m.AgendamentosPageModule)
       },
       {
         path: 'servicos',
-        component: ServicosPage,
+        loadChildren: () => import('./servicos/servicos.module').then(m => m.ServicosPageModule)
       },
       {
         path: 'settings',

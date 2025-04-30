@@ -21,7 +21,6 @@ export class HeaderAdminComponent implements OnInit {
 
   private titleSubscription: Subscription;
 
-
   constructor(
     private appService: AppService,
     private modalController: ModalController

@@ -1,6 +1,6 @@
 import { Component, Input, input, OnInit } from '@angular/core';
 import { Servico } from '../servico.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, LoadingController, ToastController, ModalController } from '@ionic/angular';
 import { async } from 'rxjs';
 
@@ -18,6 +18,7 @@ export class ServicoDetalheComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
+    private router: Router
   ) { }
 
   ngOnInit() { }
@@ -30,4 +31,12 @@ export class ServicoDetalheComponent implements OnInit {
     this.modalController.dismiss();
   }
 
+  goToAgendamento() {
+    this.modalController.dismiss();
+    this.router.navigate(['admin/agendamentos/form'], {
+      queryParams: {
+        servico_id: this.servico?.id,
+      }
+    });
+  }
 }

@@ -49,6 +49,7 @@ export class MensagensService {
    * @param message Mensagem de sucesso
    */
   async showSuccess(message: string) {
+    this.closeAllAlerts();
     return this.showToast(message, 2000, 'bottom', 'success');
   }
 
@@ -57,6 +58,7 @@ export class MensagensService {
    * @param message Mensagem de erro
    */
   async showError(message: string) {
+    this.closeAllAlerts();
     return this.showToast(message, 3000, 'bottom', 'danger');
   }
 
@@ -65,6 +67,7 @@ export class MensagensService {
    * @param message Mensagem de aviso
    */
   async showWarning(message: string) {
+    this.closeAllAlerts();
     return this.showToast(message, 3000, 'bottom', 'warning');
   }
 
@@ -73,6 +76,7 @@ export class MensagensService {
    * @param message Mensagem informativa
    */
   async showInfo(message: string) {
+    this.closeAllAlerts();
     return this.showToast(message, 2000, 'bottom', 'tertiary');
   }
 
@@ -83,6 +87,7 @@ export class MensagensService {
    * @param buttons Botões do alerta (padrão: OK)
    */
   async showAlert(header: string, message: string, buttons: any = ['OK']) {
+    this.closeAllAlerts();
     const alert = await this.alertController.create({
       header,
       message,
@@ -98,6 +103,7 @@ export class MensagensService {
    * @param message Mensagem de erro
    */
   async showErrorAlert(message: string) {
+    this.closeAllAlerts();
     return this.showAlert('Erro', message);
   }
 
@@ -108,6 +114,7 @@ export class MensagensService {
    * @returns Promise que resolve com true se confirmado, false caso contrário
    */
   async showConfirmation(header: string, message: string): Promise<boolean> {
+    this.closeAllAlerts();
     return new Promise(async (resolve) => {
       const alert = await this.alertController.create({
         header,
@@ -133,6 +140,8 @@ export class MensagensService {
    * @param message Mensagem de carregamento (padrão: 'Carregando...')
    */
   async showLoading(message: string = 'Carregando...') {
+    this.closeAllAlerts();
+
     // Previne múltiplos loaders
     if (this.isLoading) {
       return;
@@ -176,7 +185,6 @@ export class MensagensService {
       throw error;
     }
   }
-
 
   closeAllAlerts() {
     this.hideLoading();

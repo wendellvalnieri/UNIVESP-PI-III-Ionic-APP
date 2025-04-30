@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { ModalController, NavController } from '@ionic/angular';
+import { Agendamento } from 'src/app/models/agendamento.model';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
-import { AppService } from 'src/app/services/app.service';
+import { MensagensService } from 'src/app/services/mensagens.service';
 import { ServicoService } from 'src/app/services/servico.service';
 
 @Component({
@@ -15,92 +17,115 @@ export class AgendamentoFormComponent implements OnInit {
   @Input() agendamento: any | null = null;
   @Output() formSubmit = new EventEmitter<any>();
 
+  isNew: boolean = true;
+  isPage: boolean = false;
   agendamentoForm: FormGroup;
   servicos: any[] = [];
   isLoading = false;
   dataHoraInvalida = false;
+  title: string = 'Novo Agendamento';
 
   constructor(
     private fb: FormBuilder,
     private agendamentoService: AgendamentoService,
-    private appService: AppService,
     private modalController: ModalController,
-    private servicosService: ServicoService
+    private servicosService: ServicoService,
+    private messageService: MensagensService,
+    private route: ActivatedRoute,
+    private navCtrl: NavController
   ) {
     this.agendamentoForm = this.fb.group({
-      servicoId: ['', Validators.required],
-      data: ['', Validators.required],
-      hora: ['', Validators.required],
+      servico_id: ['', Validators.required],
+      data_reserva: ['', Validators.required],
+      hora_reserva: ['', Validators.required],
       observacoes: ['']
     });
   }
 
   ngOnInit() {
-    this.appService.setTitle('Agendamento');
-
     this.carregarServicos();
 
+    this.route.queryParams.subscribe(params => {
+      if (params['servico_id']) {
+        this.isPage = true;
+        this.agendamentoForm.patchValue({ servico_id: params['servico_id'] });
+      }
+    });
+
     if (this.agendamento) {
-      this.carregarAgendamento(parseInt(this.agendamento.id));
+      this.isNew = false;
+      this.title = `${this.agendamento.nome_servico} - R$ ${this.agendamento.preco}`;
+      this.carregarAgendamento(this.agendamento);
     }
   }
 
   async carregarServicos() {
     const response = await this.servicosService.getAll();
-    this.servicos = response;
+    this.servicos = response.data;
   }
 
-  async carregarAgendamento(id: number) {
-    this.isLoading = true;
-    const response = await this.agendamentoService.getAgendamento(id);
-    const agendamento = response.data;
-    this.agendamento = agendamento
-    // Separando a data e hora que vem do backend em formato ISO
-    const date = new Date(agendamento.data_reserva);
-    const data = date.toISOString().split('T')[0];
-
-    // Formatando a hora como HH:MM
-    const horas = agendamento.hora_reserva;
-
-    this.agendamentoForm.patchValue({
-      servicoId: String(agendamento.servico_id),
-      data: data,
-      hora: horas,
-      observacoes: agendamento.observacoes
-    });
+  async carregarAgendamento(agendamento: Agendamento) {
+    this.agendamentoForm.disable();
+    this.agendamentoForm.patchValue(agendamento);
     this.isLoading = false;
+  }
 
+  async cancelarAgendamento() {
+    const response = await this.agendamentoService.showConfirmarCancelamento(this.agendamento);
+    if (response) {
+      this.messageService.showLoading();
+      const cancelamentoResponse = await this.agendamentoService.cancelarAgendamento(this.agendamento.id);
+      this.messageService.hideLoading();
+      if (cancelamentoResponse.success) {
+        this.messageService.showSuccess('Agendamento cancelado com sucesso!');
+        setTimeout(() => {
+          this.modalController.dismiss({ canceled: true });
+        }, 2000);
+      } else {
+        this.messageService.showError('Erro ao cancelar o agendamento. Tente novamente.');
+      }
+    }
   }
 
   // Função para validar se a data e hora já estão ocupadas
   async validarDisponibilidade() {
-    const data = this.agendamentoForm.get('data')?.value;
-    const hora = this.agendamentoForm.get('hora')?.value;
+    const data = this.agendamentoForm.get('data_reserva')?.value;
+    const hora = this.agendamentoForm.get('hora_reserva')?.value;
 
     if (data && hora) {
       const dataHora = new Date(`${data}T${hora}`);
-      const response = await this.agendamentoService.verificarDisponibilidade(dataHora, this.agendamento.id);
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.agendamentoForm.valid) {
+      this.messageService.showLoading();
       const formData = this.agendamentoForm.value;
 
-      // Combina data e hora num único objeto Date
-      const dataHora = new Date(`${formData.data}T${formData.hora}`);
-
       const agendamento = {
-        id: this.agendamento.id,
-        servicoId: formData.servicoId,
-        dataHora: dataHora.toISOString(),
+        servico_id: formData.servico_id,
+        data_reserva: formData.data_reserva,
+        hora_reserva: formData.hora_reserva,
         observacoes: formData.observacoes
       };
 
-      this.formSubmit.emit(agendamento);
+      const response = await this.agendamentoService.agendar(agendamento);
+      this.messageService.hideLoading();
+      if (response.success) {
+        this.messageService.showSuccess('Agendamento realizado com sucesso!');
+        setTimeout(() => {
+          this.modalController.dismiss({ agendamento: response.data });
+        }, 2000);
+      } else {
+        this.messageService.showError('Erro ao realizar o agendamento. Tente novamente.');
+      }
     }
   }
 
+  goBack() {
+    this.navCtrl.back();
+  }
+  
   dismissModal() {
     this.modalController.dismiss();
   }

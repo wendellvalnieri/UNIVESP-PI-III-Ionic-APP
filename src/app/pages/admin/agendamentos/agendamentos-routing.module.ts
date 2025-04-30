@@ -7,7 +7,7 @@ import { AgendamentoFormComponent } from './agendamento-form/agendamento-form.co
 const routes: Routes = [
   {
     path: '',
-    component: AgendamentosPage
+    component: AgendamentosPage,
   },
   {
     path: 'form',

@@ -1,10 +1,20 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Agendamento</ion-title>
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons slot="start">
+            @if(isPage){
+            <ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        }
+        </ion-buttons>
+
         <ion-buttons slot="end">
+            @if(!isPage){
             <ion-button (click)="dismissModal()">
                 <ion-icon name="close"></ion-icon>
             </ion-button>
+            }
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -18,33 +28,42 @@
 
     <form [formGroup]="agendamentoForm" (ngSubmit)="onSubmit()">
         <ion-list>
+            @if(isNew){
             <ion-item>
                 <ion-label position="stacked">Serviço *</ion-label>
-                <ion-select formControlName="servicoId" interface="action-sheet" placeholder="Selecione um serviço">
+                <ion-select formControlName="servico_id" interface="action-sheet" placeholder="Selecione um serviço">
                     <ion-select-option *ngFor="let servico of servicos" [value]="servico.id">
-                        {{ servico.nome }} - R$ {{ servico.preco}}
+                        {{ servico.nome }} - {{ servico.preco | currency }}
                     </ion-select-option>
                 </ion-select>
                 <ion-note slot="error"
-                    *ngIf="agendamentoForm.get('servicoId')?.touched && agendamentoForm.get('servicoId')?.hasError('required')">
+                    *ngIf="agendamentoForm.get('servico_id')?.touched && agendamentoForm.get('servico_id')?.hasError('required')">
                     Selecione um serviço
                 </ion-note>
             </ion-item>
-
+            }
+            @if(!isNew){
+            <ion-item>
+                <ion-label position="stacked">Status</ion-label>
+                <ion-input type="text" [value]="agendamento?.status" disabled></ion-input>
+            </ion-item>
+            }
             <ion-item>
                 <ion-label position="stacked">Data *</ion-label>
-                <ion-input type="date" formControlName="data" (ionChange)="validarDisponibilidade()"></ion-input>
+                <ion-input type="date" formControlName="data_reserva"
+                    (ionChange)="validarDisponibilidade()"></ion-input>
                 <ion-note slot="error"
-                    *ngIf="agendamentoForm.get('data')?.touched && agendamentoForm.get('data')?.hasError('required')">
+                    *ngIf="agendamentoForm.get('data_reserva')?.touched && agendamentoForm.get('data_reserva')?.hasError('required')">
                     A data é obrigatória
                 </ion-note>
             </ion-item>
 
             <ion-item>
                 <ion-label position="stacked">Hora *</ion-label>
-                <ion-input type="time" formControlName="hora" (ionChange)="validarDisponibilidade()"></ion-input>
+                <ion-input type="time" formControlName="hora_reserva"
+                    (ionChange)="validarDisponibilidade()"></ion-input>
                 <ion-note slot="error"
-                    *ngIf="agendamentoForm.get('hora')?.touched && agendamentoForm.get('hora')?.hasError('required')">
+                    *ngIf="agendamentoForm.get('hora_reserva')?.touched && agendamentoForm.get('hora_reserva')?.hasError('required')">
                     A hora é obrigatória
                 </ion-note>
             </ion-item>
@@ -60,13 +79,23 @@
                 <ion-textarea formControlName="observacoes" rows="4"
                     placeholder="Observações adicionais..."></ion-textarea>
             </ion-item>
+
         </ion-list>
 
         <div class="ion-padding">
+            @if(isNew) {
             <ion-button expand="block" type="submit" [disabled]="agendamentoForm.invalid || isLoading">
                 <ion-spinner *ngIf="isLoading" name="circles"></ion-spinner>
-                <span *ngIf="!isLoading">{{ agendamento?.id ? 'Atualizar' : 'Agendar' }}</span>
+                <span *ngIf="!isLoading">Agendar</span>
             </ion-button>
+            }@else {
+            @if(agendamento.status == 'agendado') {
+            <ion-button expand="block" type="button" color="danger" (click)="cancelarAgendamento()">
+                <span>Cancelar</span>
+            </ion-button>
+            }
+            }
+
         </div>
     </form>
 </ion-content>

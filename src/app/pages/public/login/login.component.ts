@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { environment } from 'src/environments/environment';
+import { SettingsPage } from '../../admin/settings/settings.page';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private mensagensService: MensagensService,
     private router: Router,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -43,7 +46,6 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate([`admin`]);
 
-        this.mensagensService.hideLoading();
         form.reset();
         return;
       }
@@ -51,5 +53,25 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.mensagensService.showError("Preencha todos os campos corretamente");
+  }
+
+  showInformation() {
+    this.mensagensService.showAlert("Informações", "Para acessar o sistema, utilize o mesmo login e senha do aplicativo de agendamentos. Caso não tenha acesso, entre em contato com a administração do sistema.");
+  }
+
+  async openSettings() {
+    const modal = await this.modalController.create({
+      component: SettingsPage,
+      componentProps: {
+      },
+      showBackdrop: true,
+      backdropDismiss: true
+    });
+
+    modal.onDidDismiss().then((data) => {
+      if (data.data) { }
+    });
+
+    return await modal.present();
   }
 }

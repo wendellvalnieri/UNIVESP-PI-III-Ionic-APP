@@ -150,6 +150,6 @@ export class ApiAxiosService {
       }
       return error.message;
     }
-    return error.response.data;
+    return error?.response?.data || error?.error?.response?.data;
   }
 }

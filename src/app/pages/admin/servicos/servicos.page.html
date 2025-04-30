@@ -25,14 +25,18 @@
                         </ion-img>
                         <ion-img *ngIf="!servico.imagem" [src]="getDefaultImage()" alt="{{ servico.nome }}">
                         </ion-img>
-                        {{ servico.preco | currency}}
                     </div>
                     <ion-card-header>
-                        <ion-card-title>{{ servico.nome }}</ion-card-title>
+                        <ion-card-title color="primary">{{ servico.nome }} {{ servico.preco |
+                            currency}}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         <p *ngIf="servico.descricao">{{ servico.descricao }}</p>
                         <p *ngIf="!servico.descricao" class="no-description">Entre em contato para mais informações</p>
+                        <ion-button (click)="goToAgendamento($event,servico.id)" expand="full" color="primary">
+                            <ion-icon name="calendar"></ion-icon>
+                            <ion-label>Agendar</ion-label>
+                        </ion-button>
                     </ion-card-content>
                 </ion-card>
             </ion-col>

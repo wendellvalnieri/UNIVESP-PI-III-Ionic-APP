@@ -5,6 +5,7 @@ import { MensagensService } from 'src/app/services/mensagens.service';
 import { ServicoService } from 'src/app/services/servico.service';
 import { Servico } from './servico.interface';
 import { ServicoDetalheComponent } from './servico-detalhe/servico-detalhe.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-servicos',
@@ -25,6 +26,7 @@ export class ServicosPage implements OnInit {
     private mensagensService: MensagensService,
     private servicoService: ServicoService,
     private modalController: ModalController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -88,6 +90,16 @@ export class ServicosPage implements OnInit {
       return 'Consulte';
     }
     return `R$ ${priceNum.toFixed(2).replace('.', ',')}`;
+  }
+
+  goToAgendamento(event: Event, id: string) {
+    event.stopPropagation();
+
+    this.router.navigate(['admin/agendamentos/form'], {
+      queryParams: {
+        servico_id: id,
+      }
+    });
   }
 
   getDefaultImage(): string {
