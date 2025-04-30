@@ -1,23 +1,5 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>{{title}}</ion-title>
-        <ion-buttons slot="start">
-            @if(isPage){
-            <ion-button (click)="goBack()">
-                <ion-icon name="arrow-back"></ion-icon>
-            </ion-button>
-        }
-        </ion-buttons>
+<app-header-admin [showSetttingButton]="isPage" [showCloseModal]="!isPage" [showMenuButton]="isPage" [title]="title"></app-header-admin>
 
-        <ion-buttons slot="end">
-            @if(!isPage){
-            <ion-button (click)="dismissModal()">
-                <ion-icon name="close"></ion-icon>
-            </ion-button>
-            }
-        </ion-buttons>
-    </ion-toolbar>
-</ion-header>
 <ion-content>
     <div class="service-image-container" *ngIf="agendamento?.servico_id">
         <ion-img [src]="agendamento.imagem || 'assets/images/default-service.png'" alt="Imagem do serviço"

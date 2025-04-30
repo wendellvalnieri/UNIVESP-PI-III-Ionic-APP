@@ -1,3 +1,27 @@
 .status-badge {
     text-transform: capitalize;
 }
+
+ion-modal {
+    --background: #1e1e1e;
+    --color: #fff;
+    --box-shadow: none;
+    --border-radius: 16px;
+}
+
+ion-datetime {
+    --background: #1e1e1e;
+    --ion-color-primary: #d88b95;
+    --ion-color-step-600: #333;
+    color: #fff;
+}
+
+ion-datetime::part(calendar-day) {
+    border-radius: 50%;
+}
+
+ion-datetime-button {
+    --background: #2c2c2c;
+    --color: #fff;
+    border-radius: 8px;
+}

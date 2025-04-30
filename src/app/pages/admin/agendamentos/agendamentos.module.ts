@@ -8,6 +8,7 @@ import { AgendamentosPageRoutingModule } from './agendamentos-routing.module';
 
 import { AgendamentosPage } from './agendamentos.page';
 import { AgendamentoFormComponent } from './agendamento-form/agendamento-form.component';
+import { HeaderAdminModule } from 'src/app/components/header-admin/header-admin.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { AgendamentoFormComponent } from './agendamento-form/agendamento-form.co
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    AgendamentosPageRoutingModule,
+    AgendamentosPageRoutingModule, HeaderAdminModule
   ],
   declarations: [AgendamentosPage, AgendamentoFormComponent]
 })

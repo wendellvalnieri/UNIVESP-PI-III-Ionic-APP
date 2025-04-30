@@ -10,8 +10,11 @@
     <ion-buttons slot="end" (click)="close()" *ngIf="showCloseButton">
       <ion-icon name="close"></ion-icon>
     </ion-buttons>
+    <ion-buttons slot="end" (click)="closeModal()" *ngIf="showCloseModal">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
     <ion-buttons slot="end" *ngIf="showSetttingButton">
-      <ion-button (click)="openSettings()">
+      <ion-button (click)="openSettings()" color="light">
         <ion-icon name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>

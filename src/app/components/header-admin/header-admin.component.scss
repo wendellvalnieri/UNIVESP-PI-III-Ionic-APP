@@ -1,0 +1,33 @@
+:root {
+    --header-background: #ffffff;
+    --header-color: #1e1e1e;
+    --header-border: #e0e0e0;
+}
+
+ion-header#header {
+    --background: var(--header-background);
+    --color: var(--header-color);
+    border-bottom: 1px solid var(--header-border);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+ion-toolbar {
+    --background: transparent;
+    --color: inherit;
+}
+
+/* Ícones do menu e configurações */
+ion-menu-button,
+ion-icon {
+    color: var(--header-color);
+}
+
+.button-inner {
+    color: var(--header-border) !important;
+}
+
+ion-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+}

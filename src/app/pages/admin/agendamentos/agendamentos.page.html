@@ -6,24 +6,24 @@
     <ion-card-content>
       <ion-item>
         <ion-datetime-button datetime="datetime"></ion-datetime-button>
-
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime presentation="date-time" [(ngModel)]="dataFiltro" id="datetime" (ionChange)="onDataChange()"
+            <ion-datetime presentation="date" [(ngModel)]="dataFiltro" id="datetime" (ionChange)="onDataChange()"
               [formatOptions]="{
                 date: {
                   weekday: 'short',
                   month: 'long',
                   day: '2-digit',
-                },
-                time: {
-                  hour: '2-digit',
-                },
-              }" locale="pt-BR"></ion-datetime>
+                }
+              }" locale="pt-BR">
+            </ion-datetime>
           </ng-template>
         </ion-modal>
-
       </ion-item>
+      <ion-button expand="block" fill="outline" (click)="limparFiltros()">
+        <ion-icon name="filter-outline" slot="start"></ion-icon>
+        Limpar Filtros
+      </ion-button>
     </ion-card-content>
   </ion-card>
   <ion-segment [(ngModel)]="statusFiltro" (ionChange)="filtrarPorStatus()">

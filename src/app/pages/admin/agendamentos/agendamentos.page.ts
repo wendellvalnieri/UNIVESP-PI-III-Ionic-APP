@@ -51,6 +51,14 @@ export class AgendamentosPage implements OnInit {
     }
   }
 
+  limparFiltros() {
+    this.dataFiltro = "";
+
+    this.statusFiltro = 'todos';
+
+    this.agendamentosFiltrados = [...this.agendamentos];
+  }
+
   async abrirFormulario(agendamento?: Agendamento) {
     const modal = await this.modalController.create({
       component: AgendamentoFormComponent,

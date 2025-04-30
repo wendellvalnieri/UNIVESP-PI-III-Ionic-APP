@@ -17,6 +17,7 @@ export class HeaderAdminComponent implements OnInit {
   @Input() showCloseButton: boolean = false;
   @Input() showSetttingButton: boolean = true;
   @Input() defaultBackUrl: string = '/';
+  @Input() showCloseModal: boolean = false;
   @Output() btnCloseAction = new EventEmitter<string>();
 
   private titleSubscription: Subscription;
@@ -34,6 +35,10 @@ export class HeaderAdminComponent implements OnInit {
 
   close() {
     this.btnCloseAction.emit();
+  }
+
+  closeModal() {
+    this.modalController.dismiss();
   }
 
   openEnd() {
