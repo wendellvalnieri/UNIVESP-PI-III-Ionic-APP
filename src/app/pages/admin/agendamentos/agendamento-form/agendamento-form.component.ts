@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { Agendamento } from 'src/app/models/agendamento.model';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
+import { AppService } from 'src/app/services/app.service';
 import { MensagensService } from 'src/app/services/mensagens.service';
 import { ServicoService } from 'src/app/services/servico.service';
 
@@ -15,6 +16,7 @@ import { ServicoService } from 'src/app/services/servico.service';
 })
 export class AgendamentoFormComponent implements OnInit {
   @Input() agendamento: any | null = null;
+  @Input() servico: any | null = null;
   @Output() formSubmit = new EventEmitter<any>();
 
   isNew: boolean = true;
@@ -32,7 +34,8 @@ export class AgendamentoFormComponent implements OnInit {
     private servicosService: ServicoService,
     private messageService: MensagensService,
     private route: ActivatedRoute,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private appService: AppService
   ) {
     this.agendamentoForm = this.fb.group({
       servico_id: ['', Validators.required],
@@ -43,6 +46,7 @@ export class AgendamentoFormComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.carregarServicos();
 
     this.route.queryParams.subscribe(params => {
@@ -52,10 +56,20 @@ export class AgendamentoFormComponent implements OnInit {
       }
     });
 
+    if (this.servico.id) {
+      this.isPage = true;
+      this.agendamentoForm.patchValue({ servico_id: this.servico.id });
+    }
+
     if (this.agendamento) {
       this.isNew = false;
+
       this.title = `${this.agendamento.nome_servico} - R$ ${this.agendamento.preco}`;
+
       this.carregarAgendamento(this.agendamento);
+    }
+    if (this.isNew) {
+      this.title = 'Novo Agendamento';
     }
   }
 
@@ -125,7 +139,7 @@ export class AgendamentoFormComponent implements OnInit {
   goBack() {
     this.navCtrl.back();
   }
-  
+
   dismissModal() {
     this.modalController.dismiss();
   }

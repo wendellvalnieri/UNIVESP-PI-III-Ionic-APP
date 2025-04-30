@@ -1,15 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>{{ servico?.nome }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<app-header-admin [showSetttingButton]="false" [showCloseModal]="true" [showMenuButton]="false"></app-header-admin>
+<app-header-admin [showSetttingButton]="false" [showCloseModal]="true" [showMenuButton]="false"
+  [title]="servico?.nome || ''"></app-header-admin>
 
 <ion-content>
   <div *ngIf="loading" class="loading-container">

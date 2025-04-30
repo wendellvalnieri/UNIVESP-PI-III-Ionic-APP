@@ -1,11 +1,9 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filtrarServico()" placeholder="Buscar serviços"
-            animated></ion-searchbar>
-    </ion-toolbar>
-</ion-header>
+<app-header-admin></app-header-admin>
 
 <ion-content>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filtrarServico()" placeholder="Buscar serviços"
+    animated></ion-searchbar>
+
     <ion-refresher slot="fixed" (ionRefresh)="carregarServicos()">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>

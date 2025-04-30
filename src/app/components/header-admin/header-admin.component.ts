@@ -21,6 +21,7 @@ export class HeaderAdminComponent implements OnInit {
   @Output() btnCloseAction = new EventEmitter<string>();
 
   private titleSubscription: Subscription;
+  private configSubscription: Subscription;
 
   constructor(
     private appService: AppService,
@@ -28,6 +29,18 @@ export class HeaderAdminComponent implements OnInit {
   ) {
     this.titleSubscription = this.appService.title$.subscribe(
       (newTitle) => (this.title = newTitle)
+    );
+
+    this.configSubscription = this.appService.config$.subscribe(
+      (config: any) => {
+        this.showSetttingButton = config?.showSetttingButton;
+        this.showCloseModal = config?.showCloseModal;
+        this.showMenuButton = config?.showMenuButton;
+        this.showBackButton = config?.showBackButton;
+        this.showCloseButton = config?.showCloseButton;	  
+        this.defaultBackUrl = config?.defaultBackUrl;
+        this.title = config?.title;
+      }
     );
   }
 
@@ -48,6 +61,7 @@ export class HeaderAdminComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.titleSubscription.unsubscribe();
+    this.configSubscription.unsubscribe();
   }
 
   async openSettings() {

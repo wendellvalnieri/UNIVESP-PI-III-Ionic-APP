@@ -16,7 +16,8 @@ import { HeaderAdminModule } from 'src/app/components/header-admin/header-admin.
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    AgendamentosPageRoutingModule, HeaderAdminModule
+    AgendamentosPageRoutingModule,
+    HeaderAdminModule
   ],
   declarations: [AgendamentosPage, AgendamentoFormComponent]
 })

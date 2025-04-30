@@ -8,6 +8,7 @@ import { ServicosPageRoutingModule } from './servicos-routing.module';
 
 import { ServicosPage } from './servicos.page';
 import { ServicoDetalheComponent } from './servico-detalhe/servico-detalhe.component';
+import { HeaderAdminModule } from 'src/app/components/header-admin/header-admin.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ServicoDetalheComponent } from './servico-detalhe/servico-detalhe.compo
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    ServicosPageRoutingModule
+    ServicosPageRoutingModule,
+    HeaderAdminModule
   ],
   declarations: [ServicosPage, ServicoDetalheComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

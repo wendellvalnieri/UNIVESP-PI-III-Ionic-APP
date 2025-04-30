@@ -6,6 +6,7 @@ import { ServicoService } from 'src/app/services/servico.service';
 import { Servico } from './servico.interface';
 import { ServicoDetalheComponent } from './servico-detalhe/servico-detalhe.component';
 import { Router } from '@angular/router';
+import { AgendamentoFormComponent } from '../agendamentos/agendamento-form/agendamento-form.component';
 
 @Component({
   selector: 'app-servicos',
@@ -25,8 +26,8 @@ export class ServicosPage implements OnInit {
     private appService: AppService,
     private mensagensService: MensagensService,
     private servicoService: ServicoService,
+    private router: Router,
     private modalController: ModalController,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -92,14 +93,27 @@ export class ServicosPage implements OnInit {
     return `R$ ${priceNum.toFixed(2).replace('.', ',')}`;
   }
 
-  goToAgendamento(event: Event, id: string) {
+  async goToAgendamento(event: Event, id: string) {
     event.stopPropagation();
-
-    this.router.navigate(['admin/agendamentos/form'], {
-      queryParams: {
-        servico_id: id,
-      }
+    const modal = await this.modalController.create({
+      component: AgendamentoFormComponent,
+      componentProps: {
+        servico: {
+          id: id
+        },
+      },
+      showBackdrop: true,
+      backdropDismiss: true
     });
+
+    return modal.present();
+    /*     event.stopPropagation();
+    
+        this.router.navigate(['admin/agendamentos/form'], {
+          queryParams: {
+            servico_id: id,
+          }
+        }); */
   }
 
   getDefaultImage(): string {

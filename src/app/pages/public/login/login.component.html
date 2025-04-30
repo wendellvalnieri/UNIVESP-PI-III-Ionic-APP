@@ -1,10 +1,5 @@
-<ion-toolbar>
-  <ion-buttons slot="end">
-    <ion-button (click)="openSettings()">
-      <ion-icon name="settings"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-</ion-toolbar>
+<app-header-admin [showSetttingButton]="true" [showCloseModal]="false" [showMenuButton]="false"></app-header-admin>
+
 <ion-grid class="ion-align-items-center">
   <form #formLogin="ngForm" (ngSubmit)="onSubmitLogin(formLogin)" class="login-form">
 

@@ -1,8 +1,8 @@
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Servico } from '../servico.interface';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NavController, LoadingController, ToastController, ModalController } from '@ionic/angular';
-import { async } from 'rxjs';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { AgendamentoFormComponent } from '../../agendamentos/agendamento-form/agendamento-form.component';
 
 @Component({
   selector: 'app-servico-detalhe',
@@ -18,10 +18,11 @@ export class ServicoDetalheComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private router: Router
+    private router: Router,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   getDefaultImage(): string {
     return 'assets/images/default-service.png';
@@ -31,12 +32,24 @@ export class ServicoDetalheComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  goToAgendamento() {
-    this.modalController.dismiss();
-    this.router.navigate(['admin/agendamentos/form'], {
-      queryParams: {
-        servico_id: this.servico?.id,
-      }
+  async goToAgendamento() {
+    this.dismissModal();
+    const modal = await this.modalController.create({
+      component: AgendamentoFormComponent,
+      componentProps: {
+        servico: this.servico,
+      },
+      showBackdrop: true,
+      backdropDismiss: true
     });
+
+    return modal.present();
+    /*     this.modalController.dismiss();
+    
+        this.router.navigate(['admin/agendamentos/form'], {
+          queryParams: {
+            servico_id: this.servico?.id,
+          }
+        }); */
   }
 }
