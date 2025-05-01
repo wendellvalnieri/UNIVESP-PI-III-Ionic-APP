@@ -56,7 +56,7 @@ export class AgendamentoFormComponent implements OnInit {
       }
     });
 
-    if (this.servico.id) {
+    if (this.servico?.id) {
       this.isPage = true;
       this.agendamentoForm.patchValue({ servico_id: this.servico.id });
     }
