@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { empresa } from 'src/app/data/empresa';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsersService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-menu-admin',
@@ -10,23 +11,29 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./menu-admin.component.scss'],
   standalone: false
 })
+
 export class MenuAdminComponent implements OnInit {
+  menuType: string = 'overlay';
+
   public appPages = [
     { title: 'Dashboard', url: '/admin', icon: 'paper-plane' },
   ];
   public menu = [
-    { title: 'Agendamentos', url: '/admin/agendamentos', icon: 'archive' },
-    { title: 'Serviços', url: '/admin/servicos', icon: 'archive' },
+    { title: 'Agendamentos', url: '/admin/agendamentos', icon: 'calendar' },
+    { title: 'Serviços', url: '/admin/servicos', icon: 'storefront' },
   ];
   empresa: any = empresa;
+  user: any;
 
   constructor(
     private authService: AuthService,
     private alertController: AlertController,
     private router: Router,
+    private userService: UsersService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.user = await this.userService.getUser();
   }
 
   async logoutAlert() {

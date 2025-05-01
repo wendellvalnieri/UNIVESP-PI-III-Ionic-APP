@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root'
 })
 export class AccessibilityService {
-    private darkModeSubject = new BehaviorSubject<boolean>(false);
+    private darkModeSubject = new BehaviorSubject<boolean>(true);
     private fontSizeSubject = new BehaviorSubject<number>(100);
     private highContrastSubject = new BehaviorSubject<boolean>(false);
     private reduceMotionSubject = new BehaviorSubject<boolean>(false);
@@ -32,7 +32,7 @@ export class AccessibilityService {
     }
 
     async loadSettings() {
-        const darkMode = await this.storage.get('darkMode');
+        const darkMode = await this.storage.get('darkMode') || true;
         const fontSize = await this.storage.get('fontSize');
         const highContrast = await this.storage.get('highContrast');
         const reduceMotion = await this.storage.get('reduceMotion');

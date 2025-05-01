@@ -48,6 +48,7 @@ export class AuthService {
 
     async setUser(data: any) {
         await this._storage?.set('token', data.token);
+        await this._storage?.set('user', data);
         this.authState.next(true);
 
         this.userService.setItem(data);

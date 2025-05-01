@@ -13,6 +13,7 @@ import { AppService } from 'src/app/services/app.service';
 export class HeaderAdminComponent implements OnInit {
   @Input() showMenuButton: boolean = true;
   @Input() title: string = '';
+  @Input() showTitle: boolean = true;
   @Input() showBackButton: boolean = false;
   @Input() showCloseButton: boolean = false;
   @Input() showSetttingButton: boolean = true;
@@ -37,7 +38,7 @@ export class HeaderAdminComponent implements OnInit {
         this.showCloseModal = config?.showCloseModal;
         this.showMenuButton = config?.showMenuButton;
         this.showBackButton = config?.showBackButton;
-        this.showCloseButton = config?.showCloseButton;	  
+        this.showCloseButton = config?.showCloseButton;
         this.defaultBackUrl = config?.defaultBackUrl;
         this.title = config?.title;
       }

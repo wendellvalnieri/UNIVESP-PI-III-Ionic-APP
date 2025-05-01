@@ -11,7 +11,7 @@ import { AccessibilityService } from 'src/app/services/accessibility.service';
   standalone: false
 })
 export class SettingsPage implements OnInit {
-  darkMode = false;
+  darkMode = true;
   fontSize = 100; // porcentagem do tamanho da fonte padrão
   highContrast = false;
   reduceMotion = false;
@@ -27,7 +27,7 @@ export class SettingsPage implements OnInit {
 
   async ngOnInit() {
     await this.storage.create();
-    this.darkMode = await this.storage.get('darkMode') || false;
+    this.darkMode = await this.storage.get('darkMode') || true;
     this.fontSize = await this.storage.get('fontSize') || 100;
     this.highContrast = await this.storage.get('highContrast') || false;
     this.reduceMotion = await this.storage.get('reduceMotion') || false;

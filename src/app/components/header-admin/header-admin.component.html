@@ -18,6 +18,8 @@
         <ion-icon name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{title || 'Tammy Beleza'}}</ion-title>
+    @if (showTitle) {
+      <ion-title *ngIf="showTitle">{{title || 'Tamy Beleza'}}</ion-title>
+    }
   </ion-toolbar>
 </ion-header>

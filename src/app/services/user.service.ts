@@ -40,6 +40,11 @@ export class UsersService {
         return response;
     }
 
+    async getUser() {
+        const user = await this.storage.get('user');
+        return user
+    }
+
     async setItem(data: any) {
         this.item = data;
         this.setUserDataToLocalStorage(data);
