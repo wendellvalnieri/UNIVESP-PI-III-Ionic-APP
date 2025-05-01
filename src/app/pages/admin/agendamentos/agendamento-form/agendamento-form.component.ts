@@ -35,7 +35,6 @@ export class AgendamentoFormComponent implements OnInit {
     private messageService: MensagensService,
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private appService: AppService
   ) {
     this.agendamentoForm = this.fb.group({
       servico_id: ['', Validators.required],
@@ -46,7 +45,6 @@ export class AgendamentoFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.carregarServicos();
 
     this.route.queryParams.subscribe(params => {
@@ -80,28 +78,11 @@ export class AgendamentoFormComponent implements OnInit {
 
   async carregarAgendamento(agendamento: Agendamento) {
     this.agendamentoForm.disable();
+    agendamento.data_reserva = agendamento.data_reserva.substring(0, 10);
     this.agendamentoForm.patchValue(agendamento);
     this.isLoading = false;
   }
 
-  async cancelarAgendamento() {
-    const response = await this.agendamentoService.showConfirmarCancelamento(this.agendamento);
-    if (response) {
-      this.messageService.showLoading();
-      const cancelamentoResponse = await this.agendamentoService.cancelarAgendamento(this.agendamento.id);
-      this.messageService.hideLoading();
-      if (cancelamentoResponse.success) {
-        this.messageService.showSuccess('Agendamento cancelado com sucesso!');
-        setTimeout(() => {
-          this.modalController.dismiss({ canceled: true });
-        }, 2000);
-      } else {
-        this.messageService.showError('Erro ao cancelar o agendamento. Tente novamente.');
-      }
-    }
-  }
-
-  // Função para validar se a data e hora já estão ocupadas
   async validarDisponibilidade() {
     const data = this.agendamentoForm.get('data_reserva')?.value;
     const hora = this.agendamentoForm.get('hora_reserva')?.value;
@@ -127,15 +108,27 @@ export class AgendamentoFormComponent implements OnInit {
       this.messageService.hideLoading();
       if (response.success) {
         this.messageService.showSuccess('Agendamento realizado com sucesso!');
-        setTimeout(() => {
-          this.modalController.dismiss({ agendamento: response.data });
-        }, 2000);
+        this.modalController.dismiss({ success: true });
       } else {
         this.messageService.showError('Erro ao realizar o agendamento. Tente novamente.');
       }
     }
   }
 
+  async cancelarAgendamento() {
+    const response = await this.agendamentoService.showConfirmarCancelamento(this.agendamento);
+    if (response) {
+      this.messageService.showLoading();
+      const cancelamentoResponse = await this.agendamentoService.cancelarAgendamento(this.agendamento.id);
+      this.messageService.hideLoading();
+      if (cancelamentoResponse.success) {
+        this.messageService.showSuccess('Agendamento cancelado com sucesso!');
+        this.modalController.dismiss({ success: true });
+      } else {
+        this.messageService.showError('Erro ao cancelar o agendamento. Tente novamente.');
+      }
+    }
+  }
   goBack() {
     this.navCtrl.back();
   }

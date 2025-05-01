@@ -9,7 +9,7 @@ export interface Agendamento {
     status: string;
     preco: number;
     observacoes?: string;
-    data_reserva: Date;
-    hora_reserva: Date;
+    data_reserva: string;
+    hora_reserva: string;
     imagem: string;
 }

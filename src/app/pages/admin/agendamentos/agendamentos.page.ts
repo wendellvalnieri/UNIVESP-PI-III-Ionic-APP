@@ -68,12 +68,20 @@ export class AgendamentosPage implements OnInit {
       showBackdrop: true,
       backdropDismiss: true
     });
-
+    modal.onDidDismiss().then((data) => {
+      if (data?.data?.success) {
+        this.carregarAgendamentos();
+      }
+    });
     return await modal.present();
   }
 
   onDataChange() {
-    this.carregarAgendamentos();
+    this.agendamentosFiltrados = this.agendamentos.filter(
+      (agendamento) => agendamento.data_reserva.substring(0, 10) === this.dataFiltro
+    );
+
+    //this.carregarAgendamentos();
   }
 
   filtrarPorStatus() {

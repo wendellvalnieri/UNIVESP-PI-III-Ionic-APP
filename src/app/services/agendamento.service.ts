@@ -14,7 +14,7 @@ export class AgendamentoService extends CrudService<Agendamento> {
     }
 
     async getAgendamentosByUser(date: Date): Promise<any> {
-        const response = await this.getAll(`${this.endpoint}/byUser`, { date: date.toISOString() });
+        const response = await this.getAll(`${this.endpoint}/byUser`, {});
         return response;
     }
 
