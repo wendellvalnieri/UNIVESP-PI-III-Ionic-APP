@@ -46,6 +46,12 @@ ionic cap run android
 ionic cap run ios
 ```
 
+Para rodar em browser:
+
+```bash
+ionic serve
+```
+
 ## 📤 Build
 
 Para gerar a build de produção:
