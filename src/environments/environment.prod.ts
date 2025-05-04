@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   appName: "Tamy Beleza",
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: 'https://salao-nb66szilr-wendell-valnieris-projects.vercel.app',
   prod_sulfix: 'prod',
 };
