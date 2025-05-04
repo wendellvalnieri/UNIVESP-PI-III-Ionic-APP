@@ -52,6 +52,12 @@ Para rodar em browser:
 ionic serve
 ```
 
+Para rodar em browser com configurações de produção:
+
+```bash
+ionic serve --prod
+```
+
 ## 📤 Build
 
 Para gerar a build de produção:
