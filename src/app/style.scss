@@ -2,6 +2,11 @@
     text-align: center !important;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+}
+
 @media (prefers-color-scheme: light) {
     .dark {
         display: none !important;
@@ -31,5 +36,3 @@
         display: block !important;
     }
 }
-
-
