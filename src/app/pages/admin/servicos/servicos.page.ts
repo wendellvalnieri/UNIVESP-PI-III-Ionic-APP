@@ -107,13 +107,6 @@ export class ServicosPage implements OnInit {
     });
 
     return modal.present();
-    /*     event.stopPropagation();
-    
-        this.router.navigate(['admin/agendamentos/form'], {
-          queryParams: {
-            servico_id: id,
-          }
-        }); */
   }
 
   getDefaultImage(): string {
