@@ -139,8 +139,10 @@ export class MensagensService {
    * Exibe um indicador de carregamento
    * @param message Mensagem de carregamento (padrão: 'Carregando...')
    */
-  async showLoading(message: string = 'Carregando...') {
-    this.closeAllAlerts();
+  async showLoading(message: string = 'Carregando...', closeAll: boolean = false) {
+    if(closeAll){
+      this.closeAllAlerts();
+    }
 
     // Previne múltiplos loaders
     if (this.isLoading) {
@@ -150,7 +152,7 @@ export class MensagensService {
     this.isLoading = true;
     this.loader = await this.loadingController.create({
       message,
-      spinner: 'circles'
+      spinner: 'circles',
     });
 
     await this.loader.present();
@@ -162,7 +164,6 @@ export class MensagensService {
    */
   async hideLoading() {
     if (this.isLoading) {
-
       await this.loader.dismiss();
       this.isLoading = false;
     }
@@ -188,10 +189,8 @@ export class MensagensService {
 
   closeAllAlerts() {
     this.hideLoading();
-    this.alertController.dismiss().then(() => {
-      this.toastController.dismiss().then(() => {
-        this.loadingController.dismiss();
-      });
-    });
+    this.alertController?.dismiss();
+    this.toastController?.dismiss();
+    this.loadingController?.dismiss();
   }
 }

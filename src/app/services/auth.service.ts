@@ -108,8 +108,10 @@ export class AuthService {
     }
 
 
-    isAuthenticated() {
-        return this.authState.asObservable();
+    async isAuthenticated() {
+        const token = await this.getToken();
+        if(token) return true;
+        return false;
 
         /*  const currentUser = this.currentUserSubject.value;
          if (!currentUser || !currentUser.token) {
@@ -118,9 +120,8 @@ export class AuthService {
          return !this.jwtHelper.isTokenExpired(currentUser.token); */
     }
 
-    getToken(): string | null {
-        const currentUser: any = this.currentUserSubject.value;
-        return currentUser ? currentUser?.token : null;
+    async getToken() {
+        return await this.storage.get('token');
     }
 
     getCurrentUser(): Usuario | null {

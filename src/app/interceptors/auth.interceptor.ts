@@ -22,7 +22,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const token = this.authService.getToken();
-
         if (token) {
             request = request.clone({
                 setHeaders: {
@@ -36,7 +35,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (error.status === 401) {
                     this.messageService.showError('Sessão expirada. Faça login novamente.');
                     this.authService.logout();
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/public/login']);
                 }
                 return throwError(() => error);
             })

@@ -25,7 +25,6 @@ export class AppComponent {
   async initializeApp() {
     await this.platform.ready();
     await this.accessibilityService.init();
-    console.log(environment.apiUrl);
   }
 
 

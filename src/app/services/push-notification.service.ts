@@ -11,7 +11,7 @@ import { CrudService } from './crud.service';
 })
 export class PushNotificationService extends CrudService<any> {
     constructor(apiService: ApiAxiosService) {
-        super(apiService, 'notifications');
+        super(apiService, 'notificacoes');
     }
     async initPushNotifications() {
         const isNative = Capacitor.isNativePlatform();
@@ -29,9 +29,9 @@ export class PushNotificationService extends CrudService<any> {
 
         const { token } = await FirebaseMessaging.getToken();
         console.log('Token FCM:', token);
-
+        
         const responseSendToken = await this.sendTokenToAPI(token);
-        if(responseSendToken) {
+        if (responseSendToken) {
             return true;
         }
         console.error('SendTokenError:', token);

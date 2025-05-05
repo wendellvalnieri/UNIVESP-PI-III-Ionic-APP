@@ -25,12 +25,7 @@ export class LoginComponent implements OnInit {
     private modalController: ModalController
   ) { }
 
-  ngOnInit() {
-    this.authService.isAuthenticated().subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-        this.router.navigate(['/admin']);
-      }
-    });
+  async ngOnInit() {
   }
 
   async onSubmitLogin(form: NgForm) {
@@ -38,7 +33,7 @@ export class LoginComponent implements OnInit {
       await this.mensagensService.showLoading();
       const data = form.value;
       const response: any = await this.authService.login(data.username, data.password);
-      
+
 
       this.mensagensService.hideLoading();
 
