@@ -13,5 +13,6 @@ export const empresa: any = {
     redes_sociais: {
         facebook: "https://www.facebook.com/profile.php?id=100053403236048",
         instagram: "https://www.instagram.com/tamy_cabeleireira",
-    }
+    },
+    version: 1.0
 };

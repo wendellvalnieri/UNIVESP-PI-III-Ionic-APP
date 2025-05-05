@@ -1,4 +1,5 @@
-<app-header-admin [showSetttingButton]="false" [showCloseModal]="true" [showMenuButton]="false" title="Acessibilidade"></app-header-admin>
+<app-header-admin [showSetttingButton]="false" [showCloseModal]="true" [showMenuButton]="false"
+    title="Acessibilidade"></app-header-admin>
 
 <ion-content>
     <ion-list>
@@ -47,6 +48,12 @@
             <ion-button expand="block" fill="outline" (click)="resetSettings()">
                 Restaurar Configurações Padrão
             </ion-button>
+        </ion-item>
+        <ion-item lines="none">
+            Versão do APP : {{appVersion}}
+        </ion-item>
+        <ion-item lines="none">
+            API URL : {{env.apiUrl}}
         </ion-item>
     </ion-list>
 </ion-content>

@@ -1,8 +1,9 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { ModalController, Platform } from '@ionic/angular';
-import { AppService } from 'src/app/services/app.service';
 import { AccessibilityService } from 'src/app/services/accessibility.service';
+import { appData } from 'src/app/data/app';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -15,12 +16,10 @@ export class SettingsPage implements OnInit {
   fontSize = 100; // porcentagem do tamanho da fonte padrão
   highContrast = false;
   reduceMotion = false;
-
+  appVersion: any = appData.version;
+  env: any = environment;
   constructor(
     public storage: Storage,
-    private renderer: Renderer2,
-    private platform: Platform,
-    private appService: AppService,
     private modalController: ModalController,
     private accessibilityService: AccessibilityService
   ) { }
