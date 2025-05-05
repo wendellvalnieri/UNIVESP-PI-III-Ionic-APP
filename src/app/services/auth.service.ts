@@ -57,27 +57,6 @@ export class AuthService {
         this.userService.setItem(data);
     }
 
-    private loadUserFromToken(token: string) {
-        try {
-            const decodedToken = this.jwtHelper.decodeToken(token);
-            if (!this.jwtHelper.isTokenExpired(token)) {
-                const user: Usuario = {
-                    id: decodedToken.id,
-                    nome: decodedToken.nome,
-                    email: decodedToken.email,
-                    perfil: decodedToken.perfil,
-                    token: token
-                };
-                this.currentUserSubject.next(user);
-            } else {
-                this.logout();
-            }
-        } catch (error) {
-            console.error('Erro ao decodificar token:', error);
-            this.logout();
-        }
-    }
-
     login(username: string, password: string) {
         const data = {
             username: username,
