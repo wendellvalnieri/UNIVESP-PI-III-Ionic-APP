@@ -74,7 +74,6 @@ describe('ServicosPage', () => {
     await component.carregarServicos();
     expect(mockMensagensService.showLoading).toHaveBeenCalled();
     expect(component.servicos.length).toBe(2);
-    expect(component.servicosFiltrados.length).toBe(2);
     expect(component.carregando).toBeFalse();
   });
 

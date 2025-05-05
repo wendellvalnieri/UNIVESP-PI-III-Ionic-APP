@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { registerLocaleData } from '@angular/common';
 import localePtBr from '@angular/common/locales/pt';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HeaderAdminModule } from './components/header-admin/header-admin.module';
 registerLocaleData(localePtBr);
 
 @NgModule({
@@ -25,6 +26,7 @@ registerLocaleData(localePtBr);
     AppRoutingModule,
     PagesPublicPageModule,
     PagesAdminPageModule,
+    HeaderAdminModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
@@ -33,6 +35,7 @@ registerLocaleData(localePtBr);
     }),
   ],
   providers: [
+    Storage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt-BR' },

@@ -47,7 +47,7 @@ export class AgendamentoFormComponent implements OnInit {
   ngOnInit() {
     this.carregarServicos();
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams?.subscribe(params => {
       if (params['servico_id']) {
         this.isPage = true;
         this.agendamentoForm.patchValue({ servico_id: params['servico_id'] });

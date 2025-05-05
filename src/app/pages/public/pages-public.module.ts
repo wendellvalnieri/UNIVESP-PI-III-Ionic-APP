@@ -16,7 +16,8 @@ import { HeaderAdminModule } from 'src/app/components/header-admin/header-admin.
     CommonModule,
     FormsModule,
     IonicModule,
-    PagesPublicPageRoutingModule,HeaderAdminModule
+    PagesPublicPageRoutingModule,
+    HeaderAdminModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [PagesPublicPage, LoginComponent, HomeComponent]
