@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { AccessibilityService } from './services/accessibility.service';
 import { Platform } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +24,8 @@ export class AppComponent {
 
   async initializeApp() {
     await this.platform.ready();
-
     await this.accessibilityService.init();
+    console.log(environment.apiUrl);
   }
 
 

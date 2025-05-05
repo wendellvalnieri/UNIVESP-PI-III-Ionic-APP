@@ -18,22 +18,24 @@ export class PushNotificationService extends CrudService<any> {
 
         if (!isNative) {
             console.log('App está rodando no navegador — Push não habilitado.');
-            return;
+            return false;
         }
-
-        // Solicita permissões
         const { receive } = await FirebaseMessaging.requestPermissions();
         if (receive !== 'granted') {
             console.warn('Permissão de push negada');
-            return;
+            return false;
         }
+        PushNotifications.register();
 
-        // Obtém o token
         const { token } = await FirebaseMessaging.getToken();
         console.log('Token FCM:', token);
 
-        // Envia o token para sua API
-        this.sendTokenToAPI(token);
+        const responseSendToken = await this.sendTokenToAPI(token);
+        if(responseSendToken) {
+            return true;
+        }
+        console.error('SendTokenError:', token);
+        return false;
     }
 
     private async sendTokenToAPI(token: string) {

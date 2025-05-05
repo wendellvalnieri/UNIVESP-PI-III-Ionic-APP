@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994946416071",
+    "project_id": "tamy-salao-eaf05",
+    "storage_bucket": "tamy-salao-eaf05.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994946416071:android:2ad4dccbaffc6c86c06de2",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJuThiKTlBgNSWib4s-IzU3eXa7JUPTGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

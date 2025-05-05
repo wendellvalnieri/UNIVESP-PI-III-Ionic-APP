@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Usuario } from '../models/usuario.model';
 import { UsersService } from './user.service';
 import { ApiAxiosService } from './api-axios.service';
+import { PushNotificationService } from './push-notification.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,11 +18,11 @@ export class AuthService {
     private _storage: Storage | null = null;
     private authState = new BehaviorSubject(false);
 
-
     constructor(
         private apiAxios: ApiAxiosService,
         private storage: Storage,
-        private userService: UsersService
+        private userService: UsersService,
+        private notificationsService: PushNotificationService
     ) {
         this.currentUserSubject = new BehaviorSubject<Usuario | null>(null);
         this.currentUser = this.currentUserSubject.asObservable();
@@ -49,8 +50,10 @@ export class AuthService {
     async setUser(data: any) {
         await this._storage?.set('token', data.token);
         await this._storage?.set('user', data);
-        this.authState.next(true);
 
+        const responsePushNotification = await this.notificationsService.initPushNotifications();
+
+        this.authState.next(true);
         this.userService.setItem(data);
     }
 

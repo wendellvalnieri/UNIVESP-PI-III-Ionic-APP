@@ -3,5 +3,5 @@ export interface Usuario {
     nome: string;
     email: string;
     perfil: 'admin' | 'funcionario';
-    token?: string;
+    token: string;
 }

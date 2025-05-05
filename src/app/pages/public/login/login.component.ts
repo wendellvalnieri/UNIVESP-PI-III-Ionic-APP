@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       await this.mensagensService.showLoading();
       const data = form.value;
       const response: any = await this.authService.login(data.username, data.password);
+      
 
       this.mensagensService.hideLoading();
 
